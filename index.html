@@ -127,7 +127,7 @@
         }
     }
 
-    #history-tab .alive-rectangle {
+    #history-tab .alive-rectangle, #checklist-tab .alive-rectangle {
         animation: none !important;
         transform: none !important;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -341,7 +341,7 @@
     .input-group {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 10px;
         align-items: center;
         margin-top: 10px;
         width: 100%;
@@ -431,7 +431,6 @@
         border: 1px solid rgba(255, 255, 255, 0.12);
         border-radius: 10px;
         gap: 10px;
-        cursor: pointer;
     }
 
     .checklist-card.done {
@@ -440,12 +439,47 @@
         background: rgba(0, 0, 0, 0.3);
     }
 
+    .checklist-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-align: left;
+        flex-wrap: wrap;
+        flex: 1;
+    }
+
+    .checklist-card input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        accent-color: #e50914;
+        cursor: pointer;
+    }
+
     .badge {
         background: rgba(229, 9, 20, 0.35);
         border: 1px solid rgba(229, 9, 20, 0.5);
         padding: 3px 10px;
         font-size: 0.72rem;
         color: #fbcfe8;
+        border-radius: 6px;
+    }
+
+    .creator-badge {
+        background: rgba(147, 51, 234, 0.35);
+        border: 1px solid rgba(147, 51, 234, 0.5);
+        padding: 3px 8px;
+        font-size: 0.7rem;
+        color: #e9d5ff;
+        border-radius: 6px;
+    }
+
+    .price-badge {
+        background: rgba(34, 197, 94, 0.25);
+        border: 1px solid rgba(34, 197, 94, 0.4);
+        padding: 3px 8px;
+        font-size: 0.72rem;
+        color: #4ade80;
+        font-weight: 600;
         border-radius: 6px;
     }
 
@@ -655,6 +689,8 @@
             
             <div class="input-group">
                 <input type="text" id="checklist-input" placeholder="Ano ang kailangan o babayaran baby? ✨">
+                <!-- Binago to type="text" para pwede ang range format tulad ng 50-100 -->
+                <input type="text" id="checklist-price" placeholder="Estimated Price Range e.g. 50-100 💸">
                 <select id="checklist-category" class="custom-select">
                     <option value="Emergency 🚨">Emergency 🚨</option>
                     <option value="Daily Needs 🏠">Daily Needs 🏠</option>
@@ -682,7 +718,7 @@
             <p style="font-size: 0.8rem; color: #d1d5db; margin-bottom: 15px;">Lahat ng deposits at withdrawals natin andito love! (Permanent Log)</p>
             
             <div class="history-list-container" id="global-history">
-                <p class="empty-state">Wala pang nilalagay love, simulan na natin mag-ipon! (╥‸╥)</p>
+                <p class="empty-state">Wala pang nilalagay love, simulan na nating mag-ipon! (╥‸╥)</p>
             </div>
         </div>
     </section>
@@ -850,15 +886,12 @@
                 return;
             }
 
-            // 1. Add ₱1 to person's individual vault & sync Firestore
             vaults[person] += 1;
             await setDoc(doc(db, "fund", "balances"), vaults);
 
-            // 2. Increment Stash Jar count & sync Firestore
             stashCount += 1;
             await setDoc(doc(db, "fund", "stashJar"), { count: stashCount });
 
-            // 3. Log transaction in History
             const date = new Date();
             const dateString = date.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' });
             const timeString = date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
@@ -873,7 +906,6 @@
                 timestamp: Date.now()
             });
 
-            // 4. Floating coin animation
             for (let i = 0; i < 4; i++) {
                 const el = document.createElement('div');
                 el.className = 'floating-emoji';
@@ -902,10 +934,12 @@
         // Checklist functions
         window.addChecklistItem = async function() {
             const inputEl = document.getElementById('checklist-input');
+            const priceEl = document.getElementById('checklist-price');
             const categoryEl = document.getElementById('checklist-category');
             const dateEl = document.getElementById('checklist-target-date');
             
             const text = inputEl.value.trim();
+            const priceRange = priceEl.value.trim(); // Tinatanggap na bilang text string (e.g. "50-100")
             const category = categoryEl.value;
             const targetDate = dateEl.value;
 
@@ -914,21 +948,50 @@
                 return;
             }
 
+            const whoChoice = prompt("Sino naglagay nito?\n\nType 1 para kay Gwen 🌸\nType 2 para kay Zyra 🕸️");
+            if (whoChoice === null) return;
+
+            let creator = "";
+            const cleanWho = whoChoice.trim().toLowerCase();
+            if (cleanWho === "1" || cleanWho === "gwen") {
+                creator = "Gwen 🌸";
+            } else if (cleanWho === "2" || cleanWho === "zyra") {
+                creator = "Zyra 🕸️";
+            } else {
+                alert("Hindi nakuha kung sino, kaya nilagay ko na lang na Team Ryzza! 💖");
+                creator = "Team Ryzza ✨";
+            }
+
             await addDoc(collection(db, "checklist"), {
                 text: text,
+                priceRange: priceRange,
                 category: category,
                 targetDate: targetDate || null,
+                creator: creator,
                 done: false,
                 timestamp: Date.now()
             });
 
             inputEl.value = '';
+            priceEl.value = '';
             dateEl.value = '';
         }
 
-        window.toggleChecklist = async function(id, currentStatus) {
+        window.toggleChecklist = async function(id, currentStatus, event) {
+            event.stopPropagation();
+            const willBeDone = !currentStatus;
+            
+            if (willBeDone) {
+                const confirmCheck = confirm("Na-accomplish o nakuha na ba natin ito baby? 🌸");
+                if (!confirmCheck) return;
+                alert("Congrats, so proud of u! 🎉💖 Galing-galing naman ng baby ko! ⸜( ˃ ᵕ ˂ )⸝♡");
+            } else {
+                const confirmUncheck = confirm("Gusto mo bang i-uncheck/ibalik sa active itong item baby? 🥺");
+                if (!confirmUncheck) return;
+            }
+
             await updateDoc(doc(db, "checklist", id), {
-                done: !currentStatus
+                done: willBeDone
             });
         }
 
@@ -1043,7 +1106,7 @@
             const historyContainer = document.getElementById('global-history');
             
             if (historyList.length === 0) {
-                historyContainer.innerHTML = '<p class="empty-state">Wala pang nilalagay love, simulan na natin mag-ipon! 🥺</p>';
+                historyContainer.innerHTML = '<p class="empty-state">Wala pang nilalagay love, simulan na nating mag-ipon! 🥺</p>';
                 return;
             }
 
@@ -1079,13 +1142,32 @@
         function renderChecklist(items) {
             const container = document.getElementById('checklist-container');
             if (items.length === 0) {
-                container.innerHTML = '<p class="empty-state">Wala pang checklist items, magdagdag na tayo lovee!</p>';
+                container.innerHTML = '<p class="empty-state">Wala pang checklist items, magdagdag na tayo lovee! 💖</p>';
                 return;
             }
 
             container.innerHTML = '';
-            items.items.forEach(item => {
-                // ... rest of checklist render code
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = `checklist-card ${item.done ? 'done' : ''}`;
+
+                // Sinusportuhan na ngayon ang text range format (e.g. 50-100)
+                const priceDisplay = item.priceRange ? `<span class="price-badge">₱${item.priceRange}</span>` : '';
+                const dateBadge = item.targetDate ? `<span class="date-badge">🗓️ ${item.targetDate}</span>` : '';
+                const creatorBadge = item.creator ? `<span class="creator-badge">👤 ${item.creator}</span>` : '';
+
+                card.innerHTML = `
+                    <div class="checklist-left">
+                        <input type="checkbox" ${item.done ? 'checked' : ''} onclick="toggleChecklist('${item.id}', ${item.done}, event)">
+                        <span style="font-weight: 500;">${item.text}</span>
+                        ${priceDisplay}
+                        <span class="badge">${item.category}</span>
+                        ${creatorBadge}
+                        ${dateBadge}
+                    </div>
+                    <button class="btn-delete-item" onclick="deleteChecklistItem('${item.id}', event)">✕</button>
+                `;
+                container.appendChild(card);
             });
         }
     </script>
