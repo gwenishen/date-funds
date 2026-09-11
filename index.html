@@ -689,7 +689,6 @@
             
             <div class="input-group">
                 <input type="text" id="checklist-input" placeholder="Ano ang kailangan o babayaran baby? ✨">
-                <!-- Binago to type="text" para pwede ang range format tulad ng 50-100 -->
                 <input type="text" id="checklist-price" placeholder="Estimated Price Range e.g. 50-100 💸">
                 <select id="checklist-category" class="custom-select">
                     <option value="Emergency 🚨">Emergency 🚨</option>
@@ -939,7 +938,7 @@
             const dateEl = document.getElementById('checklist-target-date');
             
             const text = inputEl.value.trim();
-            const priceRange = priceEl.value.trim(); // Tinatanggap na bilang text string (e.g. "50-100")
+            const priceRange = priceEl.value.trim();
             const category = categoryEl.value;
             const targetDate = dateEl.value;
 
@@ -1079,21 +1078,60 @@
             });
         }
 
-        // Savings Streak Calculation
+        // Fixed Consecutive Savings Streak Calculation
         function calculateStreak(historyList) {
             if (!historyList || historyList.length === 0) {
                 document.getElementById('streak-count').innerText = "0";
                 return;
             }
 
-            const activeDates = new Set(
+            // Get unique date strings (YYYY-MM-DD)
+            const dateSet = new Set(
                 historyList.map(item => {
                     const d = new Date(item.timestamp);
-                    return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+                    const year = d.getFullYear();
+                    const month = String(d.getMonth() + 1).padStart(2, '0');
+                    const day = String(d.getDate()).padStart(2, '0');
+                    return `${year}-${month}-${day}`;
                 })
             );
 
-            document.getElementById('streak-count').innerText = activeDates.size;
+            // Convert to array of Date objects, sorted descending (newest first)
+            const dates = Array.from(dateSet)
+                .map(dateStr => new Date(dateStr))
+                .sort((a, b) => b - a);
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+
+            const mostRecent = new Date(dates[0]);
+            mostRecent.setHours(0, 0, 0, 0);
+
+            // If the last entry was before yesterday, the streak is broken (0)
+            if (mostRecent < yesterday) {
+                document.getElementById('streak-count').innerText = "0";
+                return;
+            }
+
+            let streak = 0;
+            let expectedDate = new Date(mostRecent);
+
+            for (let i = 0; i < dates.length; i++) {
+                const currentDate = new Date(dates[i]);
+                currentDate.setHours(0, 0, 0, 0);
+
+                if (currentDate.getTime() === expectedDate.getTime()) {
+                    streak++;
+                    expectedDate.setDate(expectedDate.getDate() - 1);
+                } else if (currentDate.getTime() < expectedDate.getTime()) {
+                    break; // Gap found, streak breaks
+                }
+            }
+
+            document.getElementById('streak-count').innerText = streak;
         }
 
         function updateAllDisplays() {
@@ -1151,7 +1189,6 @@
                 const card = document.createElement('div');
                 card.className = `checklist-card ${item.done ? 'done' : ''}`;
 
-                // Sinusportuhan na ngayon ang text range format (e.g. 50-100)
                 const priceDisplay = item.priceRange ? `<span class="price-badge">₱${item.priceRange}</span>` : '';
                 const dateBadge = item.targetDate ? `<span class="date-badge">🗓️ ${item.targetDate}</span>` : '';
                 const creatorBadge = item.creator ? `<span class="creator-badge">👤 ${item.creator}</span>` : '';
