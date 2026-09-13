@@ -3,39 +3,656 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Shutdown</title>
+    <title>DocuSync Settings</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-        .container {
-            text-align: center;
-            padding: 2rem;
-            max-width: 500px;
-        }
-        h1 {
-            font-size: 1.8rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-        }
-        p {
-            color: #666;
-            font-size: 1rem;
-            margin-top: 0;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>This website has been shutdown by the owner.</h1>
-        <p>Thank you for using our service.</p>
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100 h-screen flex overflow-hidden transition-colors duration-200">
+
+    <!-- SIDEBAR -->
+    <aside class="w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 flex flex-col justify-between shrink-0 select-none">
+        <div>
+            <!-- Brand Header -->
+            <div class="p-4 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
+                <div class="flex items-center space-x-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold shadow-sm shadow-indigo-500/30">
+                        <i data-lucide="layers" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-sm leading-tight tracking-tight">DocuSync</h1>
+                        <span class="text-[11px] text-gray-400 dark:text-gray-500 font-medium">Hybrid P2P Engine</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="p-3 space-y-1 text-sm font-medium">
+                <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                    <i data-lucide="file-text" class="w-4 h-4"></i>
+                    <span>Room</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                    <i data-lucide="users" class="w-4 h-4"></i>
+                    <span>Sync Rooms</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                    <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
+                    <span>Metrics</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg bg-indigo-50 text-indigo-600 dark:bg-indigo-950/60 dark:text-indigo-400 font-semibold transition">
+                    <i data-lucide="settings" class="w-4 h-4"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Sidebar Footer / Status & Add Page -->
+        <div class="p-3 border-t border-gray-100 dark:border-gray-800 space-y-3">
+            <div class="px-3 py-2 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800 text-xs space-y-1">
+                <div class="flex items-center justify-between">
+                    <span class="flex items-center space-x-2 text-emerald-600 dark:text-emerald-400 font-medium">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>Online</span>
+                    </span>
+                    <span class="text-[10px] text-gray-400 font-mono">P2P v2.4</span>
+                </div>
+                <div class="text-gray-500 dark:text-gray-400 truncate font-mono text-[10px]">
+                    node-54kzsse-178919...
+                </div>
+            </div>
+
+            <!-- Add Page Dropdown Trigger -->
+            <div class="relative">
+                <button onclick="toggleAddMenu()" class="w-full flex items-center justify-between px-3 py-2.5 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium shadow-sm transition">
+                    <span class="flex items-center space-x-2">
+                        <i data-lucide="plus" class="w-4 h-4 text-gray-500"></i>
+                        <span>Add page</span>
+                    </span>
+                    <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400"></i>
+                </button>
+                <!-- Dropdown Menu -->
+                <div id="addPageMenu" class="hidden absolute bottom-full left-0 mb-2 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg py-1 z-20 text-sm">
+                    <button onclick="openNewPageModal('document')" class="w-full text-left px-3.5 py-2 hover:bg-gray-100 dark:hover:bg-gray-750 flex items-center space-x-2">
+                        <i data-lucide="file" class="w-4 h-4 text-indigo-500"></i>
+                        <span>New Document</span>
+                    </button>
+                    <button onclick="openNewPageModal('folder')" class="w-full text-left px-3.5 py-2 hover:bg-gray-100 dark:hover:bg-gray-750 flex items-center space-x-2">
+                        <i data-lucide="folder" class="w-4 h-4 text-amber-500"></i>
+                        <span>New Folder</span>
+                    </button>
+                    <button onclick="openNewPageModal('whiteboard')" class="w-full text-left px-3.5 py-2 hover:bg-gray-100 dark:hover:bg-gray-750 flex items-center space-x-2">
+                        <i data-lucide="layout" class="w-4 h-4 text-emerald-500"></i>
+                        <span>Whiteboard</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+        
+        <!-- TOP APP BAR -->
+        <header class="h-16 px-8 border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md flex items-center justify-between shrink-0 sticky top-0 z-10">
+            <div class="flex items-center space-x-3">
+                <div class="p-2 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400">
+                    <i data-lucide="settings" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h2 class="text-base font-bold leading-tight">Settings</h2>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Manage parameters and preferences</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <button onclick="showToast('Syncing parameters...')" class="px-3 py-1.5 text-xs font-medium rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition flex items-center space-x-1.5">
+                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                    <span>Sync Now</span>
+                </button>
+                <div class="h-6 w-[1px] bg-gray-200 dark:bg-gray-800"></div>
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white text-xs font-bold shadow-sm">
+                        PP
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- SETTINGS CONTAINER -->
+        <main class="flex-1 max-w-7xl w-full mx-auto p-8 grid grid-cols-12 gap-8 items-start">
+            
+            <!-- SETTINGS SUB-NAVIGATION (Left side) -->
+            <div class="col-span-12 md:col-span-3 space-y-1 bg-white dark:bg-gray-900 p-3 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm sticky top-24">
+                <button onclick="switchTab('account')" id="tab-btn-account" class="w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition bg-indigo-50 text-indigo-600 dark:bg-indigo-950/60 dark:text-indigo-400">
+                    <i data-lucide="user" class="w-4 h-4 shrink-0"></i>
+                    <span>Account & Appearance</span>
+                </button>
+                <button onclick="switchTab('system')" id="tab-btn-system" class="w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <i data-lucide="cpu" class="w-4 h-4 shrink-0"></i>
+                    <span>System & Engine</span>
+                </button>
+                <button onclick="switchTab('files')" id="tab-btn-files" class="w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <i data-lucide="folder-cog" class="w-4 h-4 shrink-0"></i>
+                    <span>File Management</span>
+                </button>
+                <button onclick="switchTab('about')" id="tab-btn-about" class="w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <i data-lucide="info" class="w-4 h-4 shrink-0"></i>
+                    <span>About DocuSync</span>
+                </button>
+            </div>
+
+            <!-- SETTINGS CONTENT PANELS (Right side) -->
+            <div class="col-span-12 md:col-span-9 space-y-6">
+
+                <!-- TAB 1: ACCOUNT & APPEARANCE -->
+                <div id="tab-content-account" class="space-y-6">
+                    
+                    <!-- Section Title Header -->
+                    <div class="flex items-center justify-between px-1">
+                        <div>
+                            <h3 class="text-lg font-bold">Profile & Account</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Manage your public profile identity and UI preferences.</p>
+                        </div>
+                        <span class="px-2.5 py-1 text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 rounded-full border border-emerald-100 dark:border-emerald-900/30">
+                            Active Member
+                        </span>
+                    </div>
+
+                    <!-- Profile Banner Card -->
+                    <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm space-y-6">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="relative group">
+                                    <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white text-2xl font-bold shadow-md">
+                                        PP
+                                    </div>
+                                    <button onclick="showToast('Upload photo feature')" class="absolute inset-0 bg-black/40 rounded-full opacity-0 group-hover:opacity-100 flex items-center justify-center text-white transition">
+                                        <i data-lucide="camera" class="w-5 h-5"></i>
+                                    </button>
+                                </div>
+                                <div>
+                                    <div class="flex items-center space-x-2">
+                                        <h3 id="displayHeaderName" class="text-lg font-bold">Paul Palamaras</h3>
+                                        <span class="px-2 py-0.5 text-xs font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 rounded-full">Workspace Owner</span>
+                                    </div>
+                                    <p id="displayHeaderEmail" class="text-sm text-gray-500 dark:text-gray-400">paul.palamaras@docusync.io</p>
+                                    <p id="displayHeaderBio" class="text-xs text-gray-400 dark:text-gray-500 mt-1">Building lightning-fast hybrid P2P document collaboration tools.</p>
+                                </div>
+                            </div>
+                            <button id="editProfileBtn" onclick="toggleEditProfile()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-medium shadow-sm shadow-indigo-500/20 flex items-center space-x-2 transition">
+                                <i data-lucide="edit-3" class="w-4 h-4"></i>
+                                <span>Edit Profile</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Personal Information Form Card -->
+                    <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm space-y-6">
+                        <div class="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-4">
+                            <div>
+                                <h3 class="font-bold text-base">Personal Information</h3>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Update your name, email address, and personal bio.</p>
+                            </div>
+                            <span class="text-xs text-emerald-600 dark:text-emerald-400 font-medium flex items-center space-x-1">
+                                <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+                                <span>Securely Synced</span>
+                            </span>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="space-y-1.5">
+                                <label class="text-xs font-semibold text-gray-600 dark:text-gray-400">Display Name</label>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                                        <i data-lucide="user" class="w-4 h-4"></i>
+                                    </span>
+                                    <input type="text" id="inputName" value="Paul Palamaras" disabled class="w-full pl-9 pr-3.5 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm disabled:opacity-70 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                </div>
+                            </div>
+                            <div class="space-y-1.5">
+                                <label class="text-xs font-semibold text-gray-600 dark:text-gray-400">Email Address</label>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                                        <i data-lucide="mail" class="w-4 h-4"></i>
+                                    </span>
+                                    <input type="email" id="inputEmail" value="paul.palamaras@docusync.io" disabled class="w-full pl-9 pr-3.5 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm disabled:opacity-70 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-semibold text-gray-600 dark:text-gray-400">Bio / About</label>
+                            <textarea id="inputBio" rows="3" disabled class="w-full p-3.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm disabled:opacity-70 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none">Building lightning-fast hybrid P2P document collaboration tools.</textarea>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div id="profileActionButtons" class="hidden flex items-center justify-end space-x-3 pt-4 border-t border-gray-100 dark:border-gray-800">
+                            <button onclick="cancelEditProfile()" class="px-4 py-2 border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl text-sm font-medium transition">
+                                Cancel
+                            </button>
+                            <button onclick="saveProfile()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-medium shadow-sm shadow-indigo-500/20 flex items-center space-x-1.5 transition">
+                                <i data-lucide="check" class="w-4 h-4"></i>
+                                <span>Save Changes</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- NEW: Connected Accounts Card -->
+                    <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm space-y-4">
+                        <div>
+                            <h3 class="font-bold text-base">Connected Accounts</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Link your developer profiles and third-party tools.</p>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3.5 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-9 h-9 rounded-xl bg-gray-900 text-white flex items-center justify-center font-bold text-sm">
+                                        <i data-lucide="code" class="w-4 h-4"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-semibold">CodePen</h4>
+                                        <p class="text-xs text-emerald-600 dark:text-emerald-400 font-medium">Connected successfully</p>
+                                    </div>
+                                </div>
+                                <button onclick="showToast('CodePen account disconnected')" class="px-3 py-1.5 text-xs font-medium border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition">
+                                    Disconnect
+                                </button>
+                            </div>
+                            <div class="flex items-center justify-between p-3.5 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-9 h-9 rounded-xl bg-violet-600 text-white flex items-center justify-center font-bold text-sm">
+                                        <i data-lucide="terminal" class="w-4 h-4"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-semibold">GitHub Workspace</h4>
+                                        <p class="text-xs text-gray-400">Not connected</p>
+                                    </div>
+                                </div>
+                                <button onclick="showToast('Connecting to GitHub...')" class="px-3 py-1.5 text-xs font-medium bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition">
+                                    Connect
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- NEW: Security & 2FA Card -->
+                    <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm space-y-4">
+                        <div>
+                            <h3 class="font-bold text-base">Security & Authentication</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Manage password credentials and verification layers.</p>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
+                            <div class="flex items-center space-x-3">
+                                <div class="p-2.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400">
+                                    <i data-lucide="key-round" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold">Two-Factor Authentication (2FA)</h4>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">Secure node logins with an authenticator app.</p>
+                                </div>
+                            </div>
+                            <button onclick="showToast('2FA settings updated')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-medium transition">
+                                Enable 2FA
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Appearance Card -->
+                    <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm space-y-4">
+                        <div>
+                            <h3 class="font-bold text-base">Appearance</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Customize your Web UI aesthetics and color themes.</p>
+                        </div>
+
+                        <!-- Light & Dark Mode Toggle Row -->
+                        <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
+                            <div class="flex items-center space-x-3">
+                                <div class="p-2.5 rounded-lg bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400">
+                                    <i id="themeIcon" data-lucide="sun" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold">Light & Dark Mode</h4>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">Toggle between light and dark aesthetics seamlessly.</p>
+                                </div>
+                            </div>
+                            <button onclick="toggleDarkMode()" id="darkModeToggle" class="w-12 h-6 bg-gray-300 dark:bg-indigo-600 rounded-full transition-colors relative p-1 focus:outline-none">
+                                <div id="darkModeKnob" class="w-4 h-4 bg-white rounded-full shadow-md transform translate-x-0 dark:translate-x-6 transition-transform"></div>
+                            </button>
+                        </div>
+
+                        <!-- Accent Color Scheme Row -->
+                        <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
+                            <div>
+                                <h4 class="text-sm font-semibold">Accent Color Scheme</h4>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Choose your preferred workspace accent tint.</p>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="flex items-center space-x-2">
+                                    <button onclick="setAccentColor('indigo')" class="w-7 h-7 rounded-full bg-indigo-600 ring-offset-2 dark:ring-offset-gray-900 ring-2 ring-indigo-600 focus:outline-none transition transform hover:scale-110"></button>
+                                    <button onclick="setAccentColor('emerald')" class="w-7 h-7 rounded-full bg-emerald-600 focus:outline-none transition transform hover:scale-110"></button>
+                                    <button onclick="setAccentColor('purple')" class="w-7 h-7 rounded-full bg-purple-600 focus:outline-none transition transform hover:scale-110"></button>
+                                    <button onclick="setAccentColor('rose')" class="w-7 h-7 rounded-full bg-rose-600 focus:outline-none transition transform hover:scale-110"></button>
+                                </div>
+                                <span id="accentLabel" class="text-xs text-gray-400 font-medium pl-2 border-l border-gray-200 dark:border-gray-700">Indigo (Default)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Account Session Card -->
+                    <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm space-y-4">
+                        <div>
+                            <h3 class="font-bold text-base">Account Session</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Manage your current active session and security credentials.</p>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
+                            <div class="flex items-center space-x-3">
+                                <div class="p-2.5 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
+                                    <i data-lucide="log-out" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold">Log Out</h4>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">End your current web session safely.</p>
+                                </div>
+                            </div>
+                            <button onclick="openModal('logoutModal')" class="px-4 py-2 border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl text-sm font-medium transition">
+                                Log Out
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Danger Zone Card -->
+                    <div class="bg-white dark:bg-gray-900 border border-red-200 dark:border-red-950/50 rounded-2xl p-6 shadow-sm space-y-4">
+                        <div>
+                            <h3 class="font-bold text-base text-red-600 dark:text-red-400">Danger Zone</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Irreversible destructive actions regarding your local workspace node.</p>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 bg-red-50/50 dark:bg-red-950/20 rounded-xl border border-red-100 dark:border-red-900/30">
+                            <div class="flex items-center space-x-3">
+                                <div class="p-2.5 rounded-lg bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400">
+                                    <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold text-red-700 dark:text-red-300">Factory Reset</h4>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">Wipe all settings, sessions, and cached files locally.</p>
+                                </div>
+                            </div>
+                            <button onclick="openModal('resetModal')" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl text-sm font-medium shadow-sm transition">
+                                Reset App
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- TAB 2: SYSTEM & ENGINE -->
+                <div id="tab-content-system" class="hidden space-y-6">
+                    <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm space-y-6">
+                        <div>
+                            <h3 class="font-bold text-base">System & P2P Engine Parameters</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Configure peer-to-peer relay and sync frequency.</p>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                                <div>
+                                    <h4 class="text-sm font-semibold">WebRTC Signaling Server</h4>
+                                    <p class="text-xs text-gray-500">wss://signal.docusync.io:443</p>
+                                </div>
+                                <span class="px-2.5 py-1 text-xs font-medium bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400 rounded-lg">Connected</span>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                                <div>
+                                    <h4 class="text-sm font-semibold">Automatic Peer Discovery</h4>
+                                    <p class="text-xs text-gray-500">Discover active nodes on local network subnet.</p>
+                                </div>
+                                <input type="checkbox" checked class="w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: FILE MANAGEMENT -->
+                <div id="tab-content-files" class="hidden space-y-6">
+                    <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm space-y-6">
+                        <div>
+                            <h3 class="font-bold text-base">File & Cache Management</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Manage offline document storage and cache allocation.</p>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl space-y-2">
+                                <div class="flex justify-between text-xs font-semibold">
+                                    <span>Local IndexedDB Storage</span>
+                                    <span>142 MB / 1 GB</span>
+                                </div>
+                                <div class="w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-indigo-600 h-full w-[14%] rounded-full"></div>
+                                </div>
+                            </div>
+                            <button onclick="showToast('Cache cleared successfully!')" class="px-4 py-2 border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl text-sm font-medium transition">
+                                Clear Local Cache
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: ABOUT -->
+                <div id="tab-content-about" class="hidden space-y-6">
+                    <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-16 h-16 rounded-2xl bg-indigo-600 flex items-center justify-center text-white text-2xl font-bold shadow-lg shadow-indigo-500/30">
+                                <i data-lucide="layers" class="w-8 h-8"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold">DocuSync Enterprise Edition</h3>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Version 2.4.0-stable (Build 8919)</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                            DocuSync is a hybrid P2P collaborative document engine enabling real-time workspace synchronization without central server bottlenecks. Fully encrypted end-to-end.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
     </div>
+
+    <!-- MODAL DIALOGS -->
+    <div id="appModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+            <div id="modalTitle" class="text-lg font-bold">Modal Title</div>
+            <div id="modalBody" class="text-sm text-gray-500 dark:text-gray-400">Modal body text goes here.</div>
+            <div class="flex justify-end space-x-3 pt-2">
+                <button onclick="closeModal()" class="px-4 py-2 border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl text-sm font-medium transition">
+                    Cancel
+                </button>
+                <button id="modalConfirmBtn" onclick="closeModal()" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium shadow-sm transition">
+                    Confirm
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-4 py-3 rounded-xl shadow-2xl text-sm font-medium transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center space-x-2">
+        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 dark:text-emerald-600"></i>
+        <span id="toastMessage">Action completed successfully</span>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Toggle Add Page Menu
+        function toggleAddMenu() {
+            const menu = document.getElementById('addPageMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', function(e) {
+            const btn = document.querySelector('button[onclick="toggleAddMenu()"]');
+            const menu = document.getElementById('addPageMenu');
+            if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+
+        // Switch Tabs in Settings
+        function switchTab(tabId) {
+            const tabs = ['account', 'system', 'files', 'about'];
+            tabs.forEach(t => {
+                const content = document.getElementById(`tab-content-${t}`);
+                const btn = document.getElementById(`tab-btn-${t}`);
+                if (t === tabId) {
+                    content.classList.remove('hidden');
+                    btn.className = "w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition bg-indigo-50 text-indigo-600 dark:bg-indigo-950/60 dark:text-indigo-400";
+                } else {
+                    content.classList.add('hidden');
+                    btn.className = "w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800";
+                }
+            });
+            lucide.createIcons();
+        }
+
+        // Edit Profile Toggle State (Locked by default)
+        let isEditingProfile = false;
+        function toggleEditProfile() {
+            isEditingProfile = !isEditingProfile;
+            const nameInput = document.getElementById('inputName');
+            const emailInput = document.getElementById('inputEmail');
+            const bioInput = document.getElementById('inputBio');
+            const actionBtns = document.getElementById('profileActionButtons');
+            const editBtn = document.getElementById('editProfileBtn');
+
+            if (isEditingProfile) {
+                nameInput.disabled = false;
+                emailInput.disabled = false;
+                bioInput.disabled = false;
+                actionBtns.classList.remove('hidden');
+                editBtn.classList.add('hidden');
+                nameInput.focus();
+            } else {
+                nameInput.disabled = true;
+                emailInput.disabled = true;
+                bioInput.disabled = true;
+                actionBtns.classList.add('hidden');
+                editBtn.classList.remove('hidden');
+            }
+        }
+
+        function cancelEditProfile() {
+            toggleEditProfile();
+            showToast('Changes discarded');
+        }
+
+        function saveProfile() {
+            const newName = document.getElementById('inputName').value;
+            const newEmail = document.getElementById('inputEmail').value;
+            const newBio = document.getElementById('inputBio').value;
+
+            document.getElementById('displayHeaderName').innerText = newName;
+            document.getElementById('displayHeaderEmail').innerText = newEmail;
+            document.getElementById('displayHeaderBio').innerText = newBio;
+
+            toggleEditProfile();
+            showToast('Profile updated successfully!');
+        }
+
+        // Accent Color Switcher
+        function setAccentColor(color) {
+            const labels = {
+                indigo: 'Indigo (Default)',
+                emerald: 'Emerald (Vibrant)',
+                purple: 'Purple (Royal)',
+                rose: 'Rose (Crimson)'
+            };
+            document.getElementById('accentLabel').innerText = labels[color] || 'Custom';
+            showToast(`Accent color updated to ${color}!`);
+        }
+
+        // Dark Mode Toggle
+        let isDarkMode = false;
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            document.documentElement.classList.toggle('dark', isDarkMode);
+            const icon = document.getElementById('themeIcon');
+            icon.setAttribute('data-lucide', isDarkMode ? 'moon' : 'sun');
+            lucide.createIcons();
+            showToast(isDarkMode ? 'Dark mode enabled' : 'Light mode enabled');
+        }
+
+        // Modal Handler
+        function openModal(type) {
+            const modal = document.getElementById('appModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+            const confirmBtn = document.getElementById('modalConfirmBtn');
+
+            modal.classList.remove('hidden');
+            if (type === 'logoutModal') {
+                title.innerText = 'Log out of DocuSync?';
+                body.innerText = 'You will need to sign back in with your credentials to access your synced workspace.';
+                confirmBtn.className = 'px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-medium shadow-sm transition';
+                confirmBtn.onclick = () => { closeModal(); showToast('Logged out successfully'); };
+            } else if (type === 'resetModal') {
+                title.innerText = 'Perform Factory Reset?';
+                body.innerText = 'Warning: This will wipe all local settings, active cache, and workspace sessions permanently.';
+                confirmBtn.className = 'px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl text-sm font-medium shadow-sm transition';
+                confirmBtn.onclick = () => { closeModal(); showToast('Factory reset completed'); };
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('appModal').classList.add('hidden');
+        }
+
+        function openNewPageModal(type) {
+            document.getElementById('addPageMenu').classList.add('hidden');
+            showToast(`Creating new ${type}...`);
+        }
+
+        // Toast Notification System
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const msgSpan = document.getElementById('toastMessage');
+            msgSpan.innerText = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
