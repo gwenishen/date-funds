@@ -163,15 +163,12 @@
                         <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm space-y-6">
                             <div class="flex items-center justify-between">
                                 <div>
-                                    <h3 class="font-bold text-base">Profile & Account</h3>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">Manage your public profile identity and UI preferences.</p>
+                                    <h3 class="font-bold text-base">Profile & Local Identity</h3>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">Manage your profile information and UI preferences.</p>
                                 </div>
-                                <span class="px-3 py-1 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 rounded-full text-xs font-semibold border border-emerald-100 dark:border-emerald-900/30">
-                                    Active Member
-                                </span>
                             </div>
 
-                            <!-- PROFILE CARD (Cleaned layout without rainbow banner, colored button) -->
+                            <!-- PROFILE CARD -->
                             <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-5 shadow-sm flex items-center justify-between flex-wrap gap-4">
                                 <div class="flex items-center space-x-4 relative">
                                     <div id="profileAvatarInitials" class="w-16 h-16 rounded-2xl bg-indigo-600 text-white font-bold text-xl flex items-center justify-center shadow-md relative">
@@ -182,49 +179,49 @@
                                     </div>
                                     <div>
                                         <div class="flex items-center space-x-2">
-                                            <h4 id="displayCardName" class="font-bold text-base">Paul Palamaras</h4>
-                                            <span class="px-2 py-0.5 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 text-xs font-medium rounded-md border border-indigo-100 dark:border-indigo-900/30">Workspace Owner</span>
+                                            <h4 id="displayCardName" class="font-bold text-base">Paul Palamara</h4>
+                                            <span class="px-2 py-0.5 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 text-xs font-medium rounded-md border border-indigo-100 dark:border-indigo-900/30">Local Node Owner</span>
                                         </div>
-                                        <p id="displayCardEmail" class="text-xs text-gray-500 dark:text-gray-400 font-mono mt-0.5">paul.palamaras@docusync.io</p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Building lightning-fast hybrid P2P document collaboration tools.</p>
+                                        <p id="displayCardIdentifier" class="text-xs text-gray-500 dark:text-gray-400 font-mono mt-0.5">paulpalamara</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Decentralized workspace accessible by peers.</p>
                                     </div>
                                 </div>
-                                <button onclick="toggleEditProfile()" id="editProfileBtn" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-medium shadow-sm transition flex items-center space-x-2">
+                                <button onclick="openModal('editProfileModal')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-medium shadow-sm transition flex items-center space-x-2">
                                     <i data-lucide="edit-3" class="w-4 h-4"></i>
                                     <span>Edit Profile</span>
                                 </button>
                             </div>
 
-                            <!-- Personal Information Inputs (Locked by default) -->
+                            <!-- Local Identifier & Security PIN Readouts -->
                             <div class="space-y-4 pt-2 border-t border-gray-100 dark:border-gray-800">
                                 <div class="flex items-center justify-between">
                                     <h5 class="text-sm font-semibold flex items-center space-x-2">
-                                        <span>Personal Information</span>
-                                        <span id="lockStatusBadge" class="inline-flex items-center space-x-1 px-2 py-0.5 bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-[11px] font-medium rounded-md">
+                                        <span>Credentials & Security</span>
+                                        <span class="inline-flex items-center space-x-1 px-2 py-0.5 bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-[11px] font-medium rounded-md">
                                             <i data-lucide="lock" class="w-3 h-3"></i>
                                             <span>Locked</span>
                                         </span>
                                     </h5>
                                     <span class="text-xs text-gray-400 dark:text-gray-500 flex items-center space-x-1">
                                         <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-500"></i>
-                                        <span>Securely Synced</span>
+                                        <span>Zero Cloud Dependency</span>
                                     </span>
                                 </div>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Display Name</label>
+                                        <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Local Identifier (Username)</label>
                                         <div class="relative">
-                                            <input type="text" id="inputDisplayName" value="Paul Palamaras" disabled class="w-full px-3.5 py-2.5 bg-gray-100 dark:bg-gray-800/60 text-gray-400 dark:text-gray-500 border border-gray-200 dark:border-gray-700 rounded-xl text-sm cursor-not-allowed select-none transition">
-                                            <div id="lockIcon1" class="absolute right-3.5 top-3 text-gray-400 dark:text-gray-600 pointer-events-none">
+                                            <input type="text" id="inputIdentifier" value="paulpalamaras" disabled class="w-full px-3.5 py-2.5 bg-gray-100 dark:bg-gray-800/60 text-gray-400 dark:text-gray-500 border border-gray-200 dark:border-gray-700 rounded-xl text-sm cursor-not-allowed select-none transition">
+                                            <div class="absolute right-3.5 top-3 text-gray-400 dark:text-gray-600 pointer-events-none">
                                                 <i data-lucide="lock" class="w-4 h-4"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <div>
-                                        <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Email Address</label>
+                                        <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">6-Digit Security PIN</label>
                                         <div class="relative">
-                                            <input type="email" id="inputEmail" value="paul.palamaras@docusync.io" disabled class="w-full px-3.5 py-2.5 bg-gray-100 dark:bg-gray-800/60 text-gray-400 dark:text-gray-500 border border-gray-200 dark:border-gray-700 rounded-xl text-sm cursor-not-allowed select-none transition">
-                                            <div id="lockIcon2" class="absolute right-3.5 top-3 text-gray-400 dark:text-gray-600 pointer-events-none">
+                                            <input type="password" id="inputPin" value="123456" disabled maxlength="6" class="w-full px-3.5 py-2.5 bg-gray-100 dark:bg-gray-800/60 text-gray-400 dark:text-gray-500 border border-gray-200 dark:border-gray-700 rounded-xl text-sm cursor-not-allowed select-none transition tracking-widest">
+                                            <div class="absolute right-3.5 top-3 text-gray-400 dark:text-gray-600 pointer-events-none">
                                                 <i data-lucide="lock" class="w-4 h-4"></i>
                                             </div>
                                         </div>
@@ -271,7 +268,7 @@
                                     </div>
                                     <div>
                                         <h4 class="text-sm font-semibold">Log Out</h4>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">End your current web session safely.</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">Lock your local session securely.</p>
                                     </div>
                                 </div>
                                 <button onclick="openModal('logoutModal')" class="px-4 py-2 border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl text-sm font-medium transition">
@@ -294,7 +291,7 @@
                                     </div>
                                     <div>
                                         <h4 class="text-sm font-semibold text-red-700 dark:text-red-300">Factory Reset</h4>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">Wipe all settings, sessions, and cached files locally.</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">Wipe all local profiles, settings, and cached files permanently.</p>
                                     </div>
                                 </div>
                                 <button onclick="openModal('resetModal')" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl text-sm font-medium shadow-sm transition">
@@ -347,10 +344,10 @@
 
     <!-- MODAL DIALOGS -->
     <div id="appModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+        <div id="modalContainer" class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
             <div id="modalTitle" class="text-lg font-bold">Modal Title</div>
             <div id="modalBody" class="text-sm text-gray-500 dark:text-gray-400">Modal body text goes here.</div>
-            <div class="flex justify-end space-x-3 pt-2">
+            <div id="modalFooter" class="flex justify-end space-x-3 pt-2">
                 <button onclick="closeModal()" class="px-4 py-2 border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl text-sm font-medium transition">
                     Cancel
                 </button>
@@ -383,73 +380,6 @@
                 menu.classList.add('hidden');
             }
         });
-
-        let isEditingProfile = false;
-        function toggleEditProfile() {
-            isEditingProfile = !isEditingProfile;
-            const btn = document.getElementById('editProfileBtn');
-            const nameInput = document.getElementById('inputDisplayName');
-            const emailInput = document.getElementById('inputEmail');
-            const lockBadge = document.getElementById('lockStatusBadge');
-            const lockIcon1 = document.getElementById('lockIcon1');
-            const lockIcon2 = document.getElementById('lockIcon2');
-
-            if (isEditingProfile) {
-                // Unlock inputs
-                nameInput.disabled = false;
-                emailInput.disabled = false;
-                nameInput.className = "w-full px-3.5 py-2.5 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-indigo-500 dark:border-indigo-500 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition";
-                emailInput.className = "w-full px-3.5 py-2.5 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-indigo-500 dark:border-indigo-500 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition";
-                
-                lockIcon1.innerHTML = `<i data-lucide="unlock" class="w-4 h-4 text-indigo-500"></i>`;
-                lockIcon2.innerHTML = `<i data-lucide="unlock" class="w-4 h-4 text-indigo-500"></i>`;
-
-                // Change button style to indicate active editing / save state with vibrant accent
-                btn.innerHTML = `<i data-lucide="check" class="w-4 h-4"></i><span>Save Changes</span>`;
-                btn.className = "px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-medium shadow-sm transition flex items-center space-x-2";
-
-                // Update lock badge
-                lockBadge.className = "inline-flex items-center space-x-1 px-2 py-0.5 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 text-[11px] font-medium rounded-md border border-emerald-200 dark:border-emerald-900/50";
-                lockBadge.innerHTML = `<i data-lucide="unlock" class="w-3 h-3"></i><span>Editing Unlocked</span>`;
-                
-                showToast("Profile unlocked for editing");
-            } else {
-                // Save values & update display
-                const newName = nameInput.value.trim() || "Paul Palamaras";
-                const newEmail = emailInput.value.trim() || "paul.palamaras@docusync.io";
-
-                nameInput.value = newName;
-                emailInput.value = newEmail;
-
-                // Update card text
-                document.getElementById('displayCardName').innerText = newName;
-                document.getElementById('displayCardEmail').innerText = newEmail;
-
-                // Update avatar initials
-                const initials = newName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-                document.getElementById('profileAvatarInitials').innerHTML = `${initials}<div class="absolute -bottom-1 -right-1 w-5 h-5 bg-white dark:bg-gray-900 rounded-full flex items-center justify-center p-0.5"><div class="w-full h-full bg-emerald-500 rounded-full border-2 border-white dark:border-gray-900"></div></div>`;
-
-                // Lock inputs back
-                nameInput.disabled = true;
-                emailInput.disabled = true;
-                nameInput.className = "w-full px-3.5 py-2.5 bg-gray-100 dark:bg-gray-800/60 text-gray-400 dark:text-gray-500 border border-gray-200 dark:border-gray-700 rounded-xl text-sm cursor-not-allowed select-none transition";
-                emailInput.className = "w-full px-3.5 py-2.5 bg-gray-100 dark:bg-gray-800/60 text-gray-400 dark:text-gray-500 border border-gray-200 dark:border-gray-700 rounded-xl text-sm cursor-not-allowed select-none transition";
-                
-                lockIcon1.innerHTML = `<i data-lucide="lock" class="w-4 h-4"></i>`;
-                lockIcon2.innerHTML = `<i data-lucide="lock" class="w-4 h-4"></i>`;
-
-                // Revert button style back to Indigo brand color
-                btn.innerHTML = `<i data-lucide="edit-3" class="w-4 h-4"></i><span>Edit Profile</span>`;
-                btn.className = "px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-medium shadow-sm transition flex items-center space-x-2";
-
-                // Update lock badge back
-                lockBadge.className = "inline-flex items-center space-x-1 px-2 py-0.5 bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-[11px] font-medium rounded-md";
-                lockBadge.innerHTML = `<i data-lucide="lock" class="w-3 h-3"></i><span>Locked</span>`;
-
-                showToast("Profile changes saved successfully");
-            }
-            lucide.createIcons();
-        }
 
         function switchTab(tabId) {
             const tabs = ['account', 'system', 'files', 'about'];
@@ -519,20 +449,61 @@
             const modal = document.getElementById('appModal');
             const title = document.getElementById('modalTitle');
             const body = document.getElementById('modalBody');
-            const confirmBtn = document.getElementById('modalConfirmBtn');
+            const footer = document.getElementById('modalFooter');
 
             modal.classList.remove('hidden');
-            if (type === 'logoutModal') {
-                title.innerText = 'Log out of DocuSync?';
-                body.innerText = 'You will need to sign back in with your credentials to access your synced workspace.';
-                confirmBtn.className = 'px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-medium shadow-sm transition';
-                confirmBtn.onclick = () => { closeModal(); showToast('Logged out successfully'); };
+            if (type === 'editProfileModal') {
+                title.innerText = 'Edit Profile';
+                body.innerHTML = `
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Display Name</label>
+                            <input type="text" id="editNameInput" value="Paul Palamaras" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Local Identifier</label>
+                            <input type="text" id="editUsernameInput" value="paulpalamaras" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                    </div>
+                `;
+                footer.innerHTML = `
+                    <button onclick="closeModal()" class="px-4 py-2 border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl text-sm font-medium transition">Cancel</button>
+                    <button onclick="saveProfileChanges()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-medium shadow-sm transition">Save Changes</button>
+                `;
+            } else if (type === 'logoutModal') {
+                title.innerText = 'Lock local session?';
+                body.innerText = 'Your session will be locked. You will need to enter your 6-digit security PIN to resume.';
+                footer.innerHTML = `
+                    <button onclick="closeModal()" class="px-4 py-2 border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl text-sm font-medium transition">Cancel</button>
+                    <button onclick="closeModal(); showToast('Session locked successfully');" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-medium shadow-sm transition">Confirm</button>
+                `;
             } else if (type === 'resetModal') {
                 title.innerText = 'Perform Factory Reset?';
-                body.innerText = 'Warning: This will wipe all local settings, active cache, and workspace sessions permanently.';
-                confirmBtn.className = 'px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl text-sm font-medium shadow-sm transition';
-                confirmBtn.onclick = () => { closeModal(); showToast('Factory reset completed'); };
+                body.innerText = 'Warning: This will wipe all local identifiers, active cache, and workspace sessions permanently.';
+                footer.innerHTML = `
+                    <button onclick="closeModal()" class="px-4 py-2 border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl text-sm font-medium transition">Cancel</button>
+                    <button onclick="closeModal(); showToast('Factory reset completed');" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl text-sm font-medium shadow-sm transition">Reset App</button>
+                `;
             }
+        }
+
+        function saveProfileChanges() {
+            const newName = document.getElementById('editNameInput').value;
+            const newUsername = document.getElementById('editUsernameInput').value;
+            
+            if(newName) {
+                document.getElementById('displayCardName').innerText = newName;
+                // Update initials
+                const initials = newName.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+                document.getElementById('profileAvatarInitials').innerHTML = `${initials}<div class="absolute -bottom-1 -right-1 w-5 h-5 bg-white dark:bg-gray-900 rounded-full flex items-center justify-center p-0.5"><div class="w-full h-full bg-emerald-500 rounded-full border-2 border-white dark:border-gray-900"></div></div>`;
+            }
+            if(newUsername) {
+                document.getElementById('displayCardIdentifier').innerText = newUsername;
+                document.getElementById('inputIdentifier').value = newUsername;
+            }
+
+            closeModal();
+            showToast('Profile updated successfully');
         }
 
         function closeModal() {
