@@ -1,528 +1,1268 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DocuSync Settings</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#eef2ff',
-                            100: '#e0e7ff',
-                            500: '#6366f1',
-                            600: '#4f46e5',
-                            700: '#4338ca',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
-        .dark ::-webkit-scrollbar-thumb { background: #475569; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ipon po tayo team ryzza</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+        outline: none; 
+    }
+
+    body {
+        background-color: #050a15; 
+        color: #ffffff;
+        min-height: 100vh;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-image: 
+            radial-gradient(circle at 15% 50%, rgba(229, 9, 20, 0.15), transparent 35%),
+            radial-gradient(circle at 85% 30%, rgba(147, 51, 234, 0.18), transparent 35%),
+            radial-gradient(circle at 50% 80%, rgba(244, 114, 182, 0.12), transparent 40%);
+    }
+
+    header {
+        margin-top: 35px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        z-index: 10;
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #ff4d4d, #f472b6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 25px rgba(229, 9, 20, 0.4);
+        text-align: center;
+    }
+
+    nav {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 850px;
+    }
+
+    nav button {
+        background: rgba(17, 26, 46, 0.8);
+        color: #e2e8f0;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        padding: 10px 18px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        backdrop-filter: blur(8px);
+    }
+
+    nav button:hover, nav button.active {
+        background: linear-gradient(135deg, #e50914, #f472b6);
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.4);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(229, 9, 20, 0.4);
+    }
+
+    .view-section {
+        display: none;
+        width: 100%;
+        max-width: 900px;
+        margin-top: 25px;
+        margin-bottom: 50px;
+        align-items: center;
+        flex-direction: column;
+        animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        padding: 0 15px;
+    }
+    
+    .view-section.active {
+        display: flex;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(8px) scale(0.98); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .alive-rectangle {
+        background: linear-gradient(135deg, rgba(13, 23, 42, 0.85), rgba(26, 11, 27, 0.85));
+        padding: 35px 25px;
+        width: 100%;
+        max-width: 850px;
+        text-align: center;
+        position: relative;
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(244, 114, 182, 0.25);
+        border-radius: 22px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    }
+
+    #history-tab .alive-rectangle, #checklist-tab .alive-rectangle {
+        border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .circle-lines-container {
+        width: 380px;
+        height: 380px;
+        max-width: 90vw;
+        max-height: 90vw;
+        border-radius: 50%;
+        margin: 10px auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        background: radial-gradient(circle, rgba(229, 9, 20, 0.12) 0%, rgba(5, 10, 21, 0.95) 75%);
+        border: 2px solid rgba(229, 9, 20, 0.6);
+        box-shadow: 0 0 30px rgba(229, 9, 20, 0.25);
+        padding: 30px;
+        text-align: center;
+        backdrop-filter: blur(10px);
+    }
+
+    .circle-lines-container::before {
+        content: '';
+        position: absolute;
+        inset: -12px;
+        border-radius: 50%;
+        border: 1px dashed rgba(244, 114, 182, 0.4);
+        pointer-events: none;
+    }
+
+    .alive-circle-container {
+        width: 380px;
+        height: 380px;
+        max-width: 90vw;
+        max-height: 90vw;
+        border-radius: 50%;
+        margin: 10px auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        background: radial-gradient(circle, rgba(147, 51, 234, 0.15) 0%, rgba(11, 18, 33, 0.92) 80%);
+        border: 2px solid rgba(244, 114, 182, 0.5);
+        padding: 30px;
+        text-align: center;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        animation: liveCircleMotion 5s ease-in-out infinite alternate;
+    }
+
+    .home-circle-hub {
+        width: 390px;
+        height: 390px;
+        background: radial-gradient(circle, rgba(229, 9, 20, 0.18) 0%, rgba(10, 15, 30, 0.95) 80%);
+        border-color: rgba(229, 9, 20, 0.6);
+    }
+
+    #zyra .alive-circle-container {
+        border-color: rgba(168, 85, 247, 0.6);
+        background: radial-gradient(circle, rgba(168, 85, 247, 0.18) 0%, rgba(10, 15, 30, 0.95) 80%);
+        animation-delay: -2.5s;
+    }
+
+    @keyframes liveCircleMotion {
+        0% { transform: translateY(0) scale(1); box-shadow: 0 0 20px rgba(244, 114, 182, 0.25); }
+        100% { transform: translateY(-6px) scale(1.02); box-shadow: 0 0 35px rgba(244, 114, 182, 0.45); }
+    }
+
+    .welcome-text {
+        font-size: 0.85rem;
+        line-height: 1.5;
+        color: #fce7f3; 
+        margin-top: 6px;
+        margin-bottom: 14px;
+        padding: 0 10px;
+    }
+
+    .dashboard-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: center;
+        width: 100%;
+        max-width: 850px;
+        margin-top: 25px;
+    }
+
+    .card-pod {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(12px);
+        transition: transform 0.3s ease, border-color 0.3s;
+        flex: 1 1 260px;
+        max-width: 410px;
+    }
+
+    .card-pod:hover {
+        transform: translateY(-3px);
+        border-color: rgba(244, 114, 182, 0.4);
+    }
+
+    .widget-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #fbcfe8;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .streak-container {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .streak-number {
+        font-size: 2.4rem;
+        font-weight: 800;
+        color: #ffb703;
+        text-shadow: 0 0 15px rgba(255, 183, 3, 0.4);
+    }
+
+    .streak-number.inactive-streak {
+        color: #94a3b8 !important;
+        text-shadow: none !important;
+    }
+
+    .btn-action {
+        background: linear-gradient(135deg, rgba(229, 9, 20, 0.7), rgba(244, 114, 182, 0.7));
+        border: 1px solid rgba(244, 114, 182, 0.5);
+        color: #fff;
+        padding: 8px 18px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-action:hover {
+        transform: scale(1.04);
+        box-shadow: 0 0 15px rgba(244, 114, 182, 0.5);
+    }
+
+    .rules-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(244, 114, 182, 0.2);
+        border-radius: 16px;
+        padding: 22px;
+        margin-top: 20px;
+        width: 100%;
+        max-width: 850px;
+    }
+
+    .rules-list {
+        list-style: none;
+        text-align: left;
+    }
+
+    .rules-list li {
+        background: rgba(255, 255, 255, 0.03);
+        margin: 10px 0;
+        padding: 12px 16px;
+        font-size: 0.83rem;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border: 1px solid rgba(229, 9, 20, 0.15);
+        color: #fbcfe8;
+        border-radius: 10px;
+    }
+
+    .balance-display {
+        font-size: 2.8rem;
+        font-weight: 800;
+        margin: 8px 0;
+        background: linear-gradient(to right, #ffffff, #fbcfe8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .goal-tracker-container {
+        width: 90%;
+        max-width: 320px;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 12px;
+        padding: 12px;
+        margin-top: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .progress-bar-bg {
+        width: 100%;
+        height: 10px;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 6px;
+        overflow: hidden;
+        margin-top: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .progress-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #e50914, #f472b6);
+        width: 0%;
+        transition: width 0.6s ease;
+        border-radius: 6px;
+    }
+
+    .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    input[type="number"], input[type="text"], input[type="date"], .custom-select {
+        padding: 10px 16px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        font-size: 0.85rem;
+        text-align: center;
+        width: 85%;
+        transition: border 0.3s;
+    }
+
+    input[type="number"]:focus, input[type="text"]:focus, input[type="date"]:focus, .custom-select:focus {
+        border-color: #e50914;
+        box-shadow: 0 0 8px rgba(229, 9, 20, 0.3);
+    }
+
+    .custom-select option {
+        background: #0d172a;
+        color: #fff;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+    }
+
+    .btn-rect {
+        padding: 9px 20px;
+        border-radius: 10px;
+        border: none;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: all 0.3s;
+    }
+
+    .btn-add { background: linear-gradient(135deg, #22c55e, #15803d); }
+    .btn-add:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4); }
+
+    .btn-sub { background: linear-gradient(135deg, #ef4444, #b91c1c); }
+    .btn-sub:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4); }
+
+    .history-list-container {
+        margin-top: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        align-items: center;
+        max-height: 400px;
+        overflow-y: auto;
+        padding: 5px;
+    }
+
+    .history-card {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 12px 18px;
+        font-size: 0.83rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 95%;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        gap: 12px;
+    }
+
+    .text-pos { color: #4ade80; font-weight: 600; white-space: nowrap;}
+    .text-neg { color: #f87171; font-weight: 600; white-space: nowrap;}
+    .bubble-name { font-weight: 600; color: #fbcfe8; }
+
+    .checklist-card {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 12px 16px;
+        font-size: 0.83rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 95%;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        gap: 10px;
+    }
+
+    .checklist-card.done {
+        text-decoration: line-through;
+        opacity: 0.45;
+        background: rgba(0, 0, 0, 0.25);
+    }
+
+    .checklist-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-align: left;
+        flex-wrap: wrap;
+        flex: 1;
+    }
+
+    .checklist-card input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: #e50914;
+        cursor: pointer;
+    }
+
+    .badge {
+        background: rgba(229, 9, 20, 0.25);
+        border: 1px solid rgba(229, 9, 20, 0.4);
+        padding: 3px 8px;
+        font-size: 0.7rem;
+        color: #fbcfe8;
+        border-radius: 6px;
+    }
+
+    .creator-badge {
+        background: rgba(147, 51, 234, 0.25);
+        border: 1px solid rgba(147, 51, 234, 0.4);
+        padding: 3px 8px;
+        font-size: 0.7rem;
+        color: #e9d5ff;
+        border-radius: 6px;
+    }
+
+    .price-badge {
+        background: rgba(34, 197, 94, 0.2);
+        border: 1px solid rgba(34, 197, 94, 0.35);
+        padding: 3px 8px;
+        font-size: 0.7rem;
+        color: #4ade80;
+        font-weight: 600;
+        border-radius: 6px;
+    }
+
+    .date-badge {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        padding: 3px 8px;
+        font-size: 0.7rem;
+        color: #e2e8f0;
+        border-radius: 6px;
+    }
+
+    .btn-delete-item {
+        background: rgba(248, 113, 113, 0.15);
+        border: 1px solid rgba(248, 113, 113, 0.3);
+        color: #f87171;
+        width: 24px;
+        height: 24px;
+        border-radius: 6px;
+        font-size: 0.7rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+    }
+
+    .btn-delete-item:hover { background: rgba(248, 113, 113, 0.3); }
+
+    .notes-list {
+        max-height: 150px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .note-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(244, 114, 182, 0.2);
+        padding: 10px 14px;
+        font-size: 0.81rem;
+        color: #fce7f3;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 8px;
+    }
+
+    .floating-emoji {
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        font-size: 2rem;
+        animation: floatUp 2s ease-out forwards;
+    }
+
+    @keyframes floatUp {
+        0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(-140px) scale(1.4) rotate(15deg); opacity: 0; }
+    }
+
+    .empty-state {
+        color: rgba(255,255,255,0.5);
+        font-size: 0.85rem;
+        font-style: italic;
+        margin-top: 12px;
+    }
+</style>
 </head>
-<body class="bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100 h-screen flex overflow-hidden transition-colors duration-200">
+<body>
 
-    <!-- SIDEBAR -->
-    <aside class="w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 flex flex-col justify-between shrink-0 select-none">
-        <div>
-            <!-- Brand Header -->
-            <div class="p-4 border-b border-gray-100 dark:border-gray-800 flex items-center space-x-2.5">
-                <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold shadow-sm shadow-indigo-500/30">
-                    <span class="text-xs">DS</span>
-                </div>
-                <div>
-                    <h1 class="font-bold text-sm leading-tight tracking-tight">DocuSync</h1>
-                    <span class="text-[11px] text-gray-400 dark:text-gray-500 font-medium">Hybrid P2P Engine</span>
-                </div>
-            </div>
+    <header>
+        <h1>⋆˙⟡ Team Ryzza's Love Fund ⋆˙⟡</h1>
+        <nav>
+            <button class="nav-btn active" onclick="switchTab('home', event)">Home</button>
+            <button class="nav-btn" onclick="switchTab('gwen', event)">Gwen's Ipon</button>
+            <button class="nav-btn" onclick="switchTab('zyra', event)">Zyra's Ipon</button>
+            <button class="nav-btn" onclick="switchTab('combined', event)">Our Future</button>
+            <button class="nav-btn" onclick="switchTab('checklist-tab', event)">Checklist & Needs</button>
+            <button class="nav-btn" onclick="switchTab('history-tab', event)">History Natin</button>
+        </nav>
+    </header>
 
-            <!-- Navigation Links -->
-            <nav class="p-3 space-y-1 text-sm font-medium">
-                <a href="#" onclick="switchMainTab('room', event)" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                    <i data-lucide="layout-grid" class="w-4 h-4"></i>
-                    <span>Room</span>
-                </a>
-                <a href="#" onclick="switchMainTab('sync', event)" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                    <i data-lucide="share-2" class="w-4 h-4"></i>
-                    <span>Sync Rooms</span>
-                </a>
-                <a href="#" onclick="switchMainTab('metrics', event)" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                    <i data-lucide="bar-chart" class="w-4 h-4"></i>
-                    <span>Metrics</span>
-                </a>
-                <a href="#" onclick="switchMainTab('settings', event)" class="flex items-center space-x-3 px-3 py-2 rounded-lg bg-indigo-50 text-indigo-600 dark:bg-indigo-950/60 dark:text-indigo-400 font-semibold transition">
-                    <i data-lucide="settings" class="w-4 h-4"></i>
-                    <span>Settings</span>
-                </a>
-            </nav>
-        </div>
-
-        <!-- Sidebar Footer / Status & Add Page -->
-        <div class="p-3 border-t border-gray-100 dark:border-gray-800 space-y-3">
-            <!-- Node Status Box -->
-            <div class="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800 space-y-1">
-                <div class="flex items-center justify-between text-xs">
-                    <span class="flex items-center space-x-1.5 font-medium text-emerald-600 dark:text-emerald-400">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                        <span>Online</span>
-                    </span>
-                    <span class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">P2P v2.4</span>
-                </div>
-                <p class="text-[11px] text-gray-500 dark:text-gray-400 truncate font-mono">node-54kzsse-178919...</p>
-            </div>
-
-            <!-- Add Page Dropdown Trigger -->
-            <div class="relative">
-                <button onclick="toggleAddMenu()" class="w-full flex items-center justify-between px-3 py-2.5 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium shadow-sm transition">
-                    <span class="flex items-center space-x-2">
-                        <i data-lucide="plus" class="w-4 h-4 text-gray-500"></i>
-                        <span>Add page</span>
-                    </span>
-                    <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400"></i>
-                </button>
-                <!-- Dropdown Menu -->
-                <div id="addPageMenu" class="hidden absolute bottom-full left-0 mb-2 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg py-1 z-20 text-sm">
-                    <button onclick="openNewPageModal('document')" class="w-full text-left px-3.5 py-2 hover:bg-gray-100 dark:hover:bg-gray-750 flex items-center space-x-2">
-                        <i data-lucide="file" class="w-4 h-4 text-indigo-500"></i>
-                        <span>New Document</span>
-                    </button>
-                    <button onclick="openNewPageModal('folder')" class="w-full text-left px-3.5 py-2 hover:bg-gray-100 dark:hover:bg-gray-750 flex items-center space-x-2">
-                        <i data-lucide="folder" class="w-4 h-4 text-amber-500"></i>
-                        <span>New Folder</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </aside>
-
-    <!-- MAIN CONTENT AREA -->
-    <div class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+    <!-- HOME TAB -->
+    <section id="home" class="view-section active">
         
-        <!-- HEADER -->
-        <header class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-8 py-4 flex items-center justify-between shrink-0">
-            <div>
-                <h2 id="pageTitleHeading" class="text-lg font-bold">Settings</h2>
-                <p id="pageSubHeading" class="text-xs text-gray-500 dark:text-gray-400">Manage parameters and preferences</p>
+        <div class="alive-circle-container home-circle-hub">
+            <h2 style="color: #fbcfe8; font-size: 1.3rem;">Hello, my baby! .⋆❀°</h2>
+            <p class="welcome-text">
+                Welcome sa ating interactive love fund hub! Mag-ipon, mag-plan ng dates, at mag-iwan ng sweet notes! ⸜( ˃ ᵕ ˂ )⸝♡
+            </p>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn-action" onclick="triggerLoveAction('hug', event)">🤗 Hug</button>
+                <button class="btn-action" onclick="triggerLoveAction('kiss', event)">💋 Kiss</button>
             </div>
-            <div>
-                <button onclick="showToast('Syncing workspace...')" class="flex items-center space-x-2 px-3.5 py-2 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl text-sm font-medium shadow-sm transition">
-                    <i data-lucide="refresh-cw" class="w-4 h-4 text-gray-500"></i>
-                    <span>Sync Now</span>
-                </button>
-            </div>
-        </header>
+        </div>
 
-        <!-- MAIN DYNAMIC VIEW CONTAINER -->
-        <div id="mainViewContainer" class="flex-1 flex flex-col">
+        <div class="dashboard-grid">
             
-            <!-- SETTINGS CONTAINER (Default View) -->
-            <main id="settingsMainContent" class="flex-1 max-w-7xl w-full mx-auto p-8 grid grid-cols-12 gap-8 items-start">
+            <!-- STREAK POD -->
+            <div class="card-pod">
+                <div class="widget-title">🔥 Savings Streak</div>
+                <div class="streak-container">
+                    <span class="streak-number" id="streak-count">0</span>
+                    <div style="text-align: left;">
+                        <div style="font-weight: 600; font-size: 0.85rem;">Days Active</div>
+                        <div style="font-size: 0.7rem; color: rgba(255,255,255,0.6);" id="streak-desc">Tuloy-tuloy ang ipon!</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1-PESO STASH JAR POD -->
+            <div class="card-pod">
+                <div class="widget-title">🪙 1-Peso Stash Jar</div>
+                <div style="text-align: center; margin: 2px 0;">
+                    <div style="font-size: 2rem; line-height: 1.1;">🫙 <span id="jar-count" style="font-size: 1.6rem; font-weight: 800; color: #facc15;">0</span></div>
+                    <div style="font-size: 0.95rem; font-weight: 700; color: #4ade80; margin-top: 4px;">₱<span id="jar-total">0.00</span> Total</div>
+                    <div style="font-size: 0.68rem; color: rgba(255,255,255,0.6); margin-top: 2px;">Loose coins stash!</div>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 10px; align-items: center;">
+                    <button class="btn-action" onclick="dropOnePeso(event)">Drop ₱1 🪙</button>
+                    <button onclick="resetJar()" style="background: none; border: none; color: #f87171; font-size: 0.7rem; cursor: pointer; text-decoration: underline;">Reset Stash</button>
+                </div>
+            </div>
+
+            <!-- LOVE NOTE BOARD POD -->
+            <div class="card-pod" style="flex-basis: 100%; max-width: 100%;">
+                <div class="widget-title" style="justify-content: space-between; width: 100%;">
+                    <span>💌 Daily Love Note Board</span>
+                    <small style="font-size: 0.7rem; font-weight: normal; color: #f472b6;">Leave a sweet message!</small>
+                </div>
                 
-                <!-- SETTINGS SUB-NAVIGATION (Left side) -->
-                <div class="col-span-12 md:col-span-3 space-y-1 bg-white dark:bg-gray-900 p-3 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm sticky top-8">
-                    <button onclick="switchTab('account')" id="tab-btn-account" class="w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition bg-indigo-50 text-indigo-600 dark:bg-indigo-950/60 dark:text-indigo-400">
-                        <i data-lucide="user-cog" class="w-4 h-4 shrink-0"></i>
-                        <span>Account & Appearance</span>
-                    </button>
-                    <button onclick="switchTab('system')" id="tab-btn-system" class="w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
-                        <i data-lucide="cpu" class="w-4 h-4 shrink-0"></i>
-                        <span>System & Engine</span>
-                    </button>
-                    <button onclick="switchTab('files')" id="tab-btn-files" class="w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
-                        <i data-lucide="folder-cog" class="w-4 h-4 shrink-0"></i>
-                        <span>File Management</span>
-                    </button>
-                    <button onclick="switchTab('about')" id="tab-btn-about" class="w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
-                        <i data-lucide="info" class="w-4 h-4 shrink-0"></i>
-                        <span>About DocuSync</span>
-                    </button>
+                <div style="display: flex; gap: 8px; margin-top: 5px; width: 100%;">
+                    <input type="text" id="note-input" placeholder="Isulat ang sweet message mo baby... 💭" style="width: 100%;">
+                    <button onclick="addLoveNote()" class="btn-action" style="white-space: nowrap;">Send 💌</button>
                 </div>
 
-                <!-- SETTINGS CONTENT PANELS (Right side) -->
-                <div class="col-span-12 md:col-span-9 space-y-6">
-
-                    <!-- TAB 1: ACCOUNT & APPEARANCE -->
-                    <div id="tab-content-account" class="space-y-6">
-                        
-                        <!-- Profile & Account Section -->
-                        <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm space-y-6">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <h3 class="font-bold text-base">Profile & Local Identity</h3>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">Manage your profile information and UI preferences.</p>
-                                </div>
-                            </div>
-
-                            <!-- PROFILE CARD -->
-                            <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-5 shadow-sm flex items-center justify-between flex-wrap gap-4">
-                                <div class="flex items-center space-x-4 relative">
-                                    <div id="profileAvatarInitials" class="w-16 h-16 rounded-2xl bg-indigo-600 text-white font-bold text-xl flex items-center justify-center shadow-md relative">
-                                        PP
-                                        <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-white dark:bg-gray-900 rounded-full flex items-center justify-center p-0.5">
-                                            <div class="w-full h-full bg-emerald-500 rounded-full border-2 border-white dark:border-gray-900"></div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="flex items-center space-x-2">
-                                            <h4 id="displayCardName" class="font-bold text-base">Paul Palamara</h4>
-                                            <span class="px-2 py-0.5 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 text-xs font-medium rounded-md border border-indigo-100 dark:border-indigo-900/30">Local Node Owner</span>
-                                        </div>
-                                        <p id="displayCardIdentifier" class="text-xs text-gray-500 dark:text-gray-400 font-mono mt-0.5">paulpalamara</p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Decentralized workspace accessible by peers.</p>
-                                    </div>
-                                </div>
-                                <button onclick="openModal('editProfileModal')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-medium shadow-sm transition flex items-center space-x-2">
-                                    <i data-lucide="edit-3" class="w-4 h-4"></i>
-                                    <span>Edit Profile</span>
-                                </button>
-                            </div>
-
-                            <!-- Local Identifier & Security PIN Readouts -->
-                            <div class="space-y-4 pt-2 border-t border-gray-100 dark:border-gray-800">
-                                <div class="flex items-center justify-between">
-                                    <h5 class="text-sm font-semibold flex items-center space-x-2">
-                                        <span>Credentials & Security</span>
-                                        <span class="inline-flex items-center space-x-1 px-2 py-0.5 bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-[11px] font-medium rounded-md">
-                                            <i data-lucide="lock" class="w-3 h-3"></i>
-                                            <span>Locked</span>
-                                        </span>
-                                    </h5>
-                                    <span class="text-xs text-gray-400 dark:text-gray-500 flex items-center space-x-1">
-                                        <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-500"></i>
-                                        <span>Zero Cloud Dependency</span>
-                                    </span>
-                                </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                        <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Local Identifier (Username)</label>
-                                        <div class="relative">
-                                            <input type="text" id="inputIdentifier" value="paulpalamaras" disabled class="w-full px-3.5 py-2.5 bg-gray-100 dark:bg-gray-800/60 text-gray-400 dark:text-gray-500 border border-gray-200 dark:border-gray-700 rounded-xl text-sm cursor-not-allowed select-none transition">
-                                            <div class="absolute right-3.5 top-3 text-gray-400 dark:text-gray-600 pointer-events-none">
-                                                <i data-lucide="lock" class="w-4 h-4"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">6-Digit Security PIN</label>
-                                        <div class="relative">
-                                            <input type="password" id="inputPin" value="123456" disabled maxlength="6" class="w-full px-3.5 py-2.5 bg-gray-100 dark:bg-gray-800/60 text-gray-400 dark:text-gray-500 border border-gray-200 dark:border-gray-700 rounded-xl text-sm cursor-not-allowed select-none transition tracking-widest">
-                                            <div class="absolute right-3.5 top-3 text-gray-400 dark:text-gray-600 pointer-events-none">
-                                                <i data-lucide="lock" class="w-4 h-4"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Appearance Card -->
-                        <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm space-y-4">
-                            <div>
-                                <h3 class="font-bold text-base">Appearance</h3>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">Customize your Web UI aesthetics and color themes.</p>
-                            </div>
-
-                            <!-- Light & Dark Mode Toggle Row -->
-                            <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
-                                <div class="flex items-center space-x-3">
-                                    <div class="p-2.5 rounded-lg bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400">
-                                        <i id="themeIcon" data-lucide="sun" class="w-5 h-5"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-sm font-semibold">Light Mode</h4>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">Toggle between light and dark aesthetics.</p>
-                                    </div>
-                                </div>
-                                <button onclick="toggleDarkMode()" id="darkModeToggle" class="w-12 h-6 bg-gray-300 dark:bg-indigo-600 rounded-full transition-colors relative p-1 focus:outline-none">
-                                    <div id="darkModeKnob" class="w-4 h-4 bg-white rounded-full shadow-md transform translate-x-0 dark:translate-x-6 transition-transform"></div>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Account Session Card -->
-                        <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm space-y-4">
-                            <div>
-                                <h3 class="font-bold text-base">Account Session</h3>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">Manage your current active session.</p>
-                            </div>
-
-                            <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
-                                <div class="flex items-center space-x-3">
-                                    <div class="p-2.5 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
-                                        <i data-lucide="log-out" class="w-5 h-5"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-sm font-semibold">Log Out</h4>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">Lock your local session securely.</p>
-                                    </div>
-                                </div>
-                                <button onclick="openModal('logoutModal')" class="px-4 py-2 border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl text-sm font-medium transition">
-                                    Log Out
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Danger Zone Card -->
-                        <div class="bg-white dark:bg-gray-900 border border-red-200 dark:border-red-950/50 rounded-2xl p-6 shadow-sm space-y-4">
-                            <div>
-                                <h3 class="font-bold text-base text-red-600 dark:text-red-400">Danger Zone</h3>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">Irreversible destructive actions regarding your local workspace node.</p>
-                            </div>
-
-                            <div class="flex items-center justify-between p-4 bg-red-50/50 dark:bg-red-950/20 rounded-xl border border-red-100 dark:border-red-900/30">
-                                <div class="flex items-center space-x-3">
-                                    <div class="p-2.5 rounded-lg bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400">
-                                        <i data-lucide="alert-triangle" class="w-5 h-5"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-sm font-semibold text-red-700 dark:text-red-300">Factory Reset</h4>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">Wipe all local profiles, settings, and cached files permanently.</p>
-                                    </div>
-                                </div>
-                                <button onclick="openModal('resetModal')" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl text-sm font-medium shadow-sm transition">
-                                    Reset App
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- TAB 2: SYSTEM & ENGINE -->
-                    <div id="tab-content-system" class="hidden space-y-6">
-                        <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm space-y-6">
-                            <div>
-                                <h3 class="text-xl font-bold">System & P2P Engine Parameters</h3>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">Configure peer-to-peer relay and sync frequency.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- TAB 3: FILE MANAGEMENT -->
-                    <div id="tab-content-files" class="hidden space-y-6">
-                        <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm space-y-6">
-                            <div>
-                                <h3 class="text-xl font-bold">File & Cache Management</h3>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">Manage offline document storage and cache allocation.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- TAB 4: ABOUT -->
-                    <div id="tab-content-about" class="hidden space-y-6">
-                        <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm space-y-6">
-                            <div>
-                                <h3 class="text-xl font-bold">About DocuSync</h3>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">Version 2.4.0-stable</p>
-                            </div>
-                        </div>
-                    </div>
-
+                <div class="notes-list" id="notes-container">
+                    <p class="empty-state">Wala pang love note ngayon, mag-iwan ka na baby! 🌸</p>
                 </div>
-
-            </main>
-
-            <!-- ALTERNATIVE VIEWS FOR OTHER SIDEBAR TABS -->
-            <div id="dynamicViewContent" class="hidden flex-1 p-8 max-w-7xl w-full mx-auto"></div>
+            </div>
 
         </div>
-    </div>
 
-    <!-- MODAL DIALOGS -->
-    <div id="appModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div id="modalContainer" class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
-            <div id="modalTitle" class="text-lg font-bold">Modal Title</div>
-            <div id="modalBody" class="text-sm text-gray-500 dark:text-gray-400">Modal body text goes here.</div>
-            <div id="modalFooter" class="flex justify-end space-x-3 pt-2">
-                <button onclick="closeModal()" class="px-4 py-2 border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl text-sm font-medium transition">
-                    Cancel
-                </button>
-                <button id="modalConfirmBtn" onclick="closeModal()" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium shadow-sm transition">
-                    Confirm
-                </button>
+        <div class="rules-card">
+            <ul class="rules-list">
+                <li>✦ <strong>Rule 1:</strong> Kahit barya lang yan baby, wag mahiyang i-deposit yarnn! Malaking bagay na rin yan sa mga cravings natin hehe 𓌉◯𓇋</li>
+                <li>•⩊• <strong>Rule 2:</strong> Be HONEST. Lovie na kahit 5 pesos lang ang binawas mo for something, you MUST log it. Para ma-track ng maayos diba ˶> ₃ <˶</li>
+                <li>ᰔᩚ <strong>Rule 3:</strong> Think twice before withdrawing, baka pwedeng sa hug na lang muna? hehe Pero if para sa cravings mo GO LANG BABY ♡⩊♡</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- GWEN'S TAB -->
+    <section id="gwen" class="view-section">
+        <div class="alive-circle-container">
+            <h2 style="color: #fbcfe8; font-size: 1.25rem;">Gwen's Vault ˚˖𓍢ִ໋❀</h2>
+            <p style="font-size: 0.73rem; color: #d1d5db;">Ipon ng pinakamaganda mong baby</p>
+            <div class="balance-display">₱<span id="gwen-bal">0.00</span></div>
+            
+            <div class="input-group">
+                <input type="number" id="gwen-input" placeholder="Magkano love? (₱)" style="width: 75%;">
+                <div class="action-buttons">
+                    <button class="btn-rect btn-add" onclick="transact('gwen', 'add')">Deposit</button>
+                    <button class="btn-rect btn-sub" onclick="transact('gwen', 'sub')">Withdraw</button>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- TOAST NOTIFICATION -->
-    <div id="toast" class="fixed bottom-6 right-6 bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-4 py-3 rounded-xl shadow-2xl text-sm font-medium transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center space-x-2">
-        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 dark:text-emerald-600"></i>
-        <span id="toastMessage">Action completed successfully</span>
-    </div>
+    <!-- ZYRA'S TAB -->
+    <section id="zyra" class="view-section">
+        <div class="alive-circle-container">
+            <h2 style="color: #c084fc; font-size: 1.25rem;">Zyra's Vault ‧₊˚🕸️₊˚</h2>
+            <p style="font-size: 0.7rem; color: #d1d5db; max-width: 82%;">Ipon ng napaka-ganda at napaka-poganda kong asawaa sa balat ng lupaa wahhhhh ILOVEYOUUUUUUUUU</p>
+            <div class="balance-display">₱<span id="zyra-bal">0.00</span></div>
+            
+            <div class="input-group">
+                <input type="number" id="zyra-input" placeholder="Magkano love? (₱)" style="width: 75%;">
+                <div class="action-buttons">
+                    <button class="btn-rect btn-add" onclick="transact('zyra', 'add')">Deposit</button>
+                    <button class="btn-rect btn-sub" onclick="transact('zyra', 'sub')">Withdraw</button>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- JAVASCRIPT LOGIC -->
-    <script>
-        lucide.createIcons();
+    <!-- COMBINED TAB -->
+    <section id="combined" class="view-section">
+        <div class="circle-lines-container">
+            <h2 style="color: #e50914; font-size: 1.25rem;">Total Love Fund ˗ˎˋ ♡ ˎˊ˗</h2>
+            <div class="balance-display" style="font-size: 2.6rem;">₱<span id="total-bal">0.00</span></div>
+            
+            <div class="goal-tracker-container">
+                <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: #fbcfe8;">
+                    <span>Goal: ₱<span id="goal-display">5,000</span></span>
+                    <span id="goal-percentage">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="goal-progress-fill"></div>
+                </div>
+                <button onclick="updateGoalPrompt()" style="background: none; border: none; color: #f472b6; font-size: 0.68rem; cursor: pointer; text-decoration: underline; margin-top: 4px;">Edit Target Goal 🎯</button>
+            </div>
 
-        function toggleAddMenu() {
-            const menu = document.getElementById('addPageMenu');
-            menu.classList.toggle('hidden');
-        }
+            <p style="color: rgba(255,255,255,0.75); font-size: 0.75rem; padding: 0 10px; margin-top: 8px;">
+                I'm so proud of us, baby. Let's reach our goal together! ♡
+            </p>
+        </div>
+    </section>
 
-        window.addEventListener('click', function(e) {
-            const btn = document.querySelector('button[onclick="toggleAddMenu()"]');
-            const menu = document.getElementById('addPageMenu');
-            if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
-                menu.classList.add('hidden');
+    <!-- CHECKLIST TAB -->
+    <section id="checklist-tab" class="view-section">
+        <div class="alive-rectangle">
+            <h2 style="color: #fbcfe8; margin-bottom: 5px;">Checklist & Needs Masterlist 📝</h2>
+            <p style="font-size: 0.8rem; color: #d1d5db; margin-bottom: 15px;">I-list natin dito ang emergencies, daily necessities, dates, at iba pang importanteng gastusin, baby!</p>
+            
+            <div class="input-group">
+                <input type="text" id="checklist-input" placeholder="Ano ang kailangan o babayaran baby? ✨">
+                <input type="text" id="checklist-price" placeholder="Estimated Price Range e.g. 50-100 💸">
+                <select id="checklist-category" class="custom-select">
+                    <option value="Emergency 🚨">Emergency 🚨</option>
+                    <option value="Daily Needs 🏠">Daily Needs 🏠</option>
+                    <option value="Bills & Load ⚡">Bills & Load ⚡</option>
+                    <option value="Necessities 🛒">Necessities 🛒</option>
+                    <option value="Date 🌹">Date 🌹</option>
+                    <option value="Regalo 🎁">Regalo 🎁</option>
+                    <option value="Okasyon 🎉">Okasyon 🎉</option>
+                    <option value="Others 📌">Others 📌</option>
+                </select>
+                <input type="date" id="checklist-target-date" class="custom-select" title="Target Date (Optional)">
+                <button class="btn-rect btn-add" style="width: 85%; padding: 10px;" onclick="addChecklistItem()">Add to List ➕</button>
+            </div>
+
+            <div class="history-list-container" id="checklist-container">
+                <p class="empty-state">Wala pang checklist items, magdagdag na tayo baby! 💖</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- HISTORY TAB -->
+    <section id="history-tab" class="view-section">
+        <div class="alive-rectangle">
+            <h2 style="color: #fbcfe8; margin-bottom: 5px;">Our Savings Journey ᯓ ✈︎</h2>
+            <p style="font-size: 0.8rem; color: #d1d5db; margin-bottom: 15px;">Lahat ng deposits at withdrawals natin andito love! (Permanent Log)</p>
+            
+            <div class="history-list-container" id="global-history">
+                <p class="empty-state">Wala pang nilalagay love, simulan na nating mag-ipon! (╥‸╥)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Firebase SDK Scripts -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, doc, setDoc, onSnapshot, collection, addDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyBnCMX4p_5-uZP6LCOMaKJZZN6AaLr7lDU",
+          authDomain: "date-funds.firebaseapp.com",
+          projectId: "date-funds",
+          storageBucket: "date-funds.firebasestorage.app",
+          messagingSenderId: "705042926276",
+          appId: "1:705042926276:web:2bd55b7a6ceccad7d81791",
+          measurementId: "G-7RTEY589T9"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        let vaults = { gwen: 0, zyra: 0 };
+        let stashCount = 0;
+        let targetGoal = 5000;
+
+        onSnapshot(doc(db, "fund", "balances"), (docSnap) => {
+            if (docSnap.exists()) {
+                vaults = docSnap.data();
+                updateAllDisplays();
+            } else {
+                setDoc(doc(db, "fund", "balances"), { gwen: 0, zyra: 0 });
             }
         });
 
-        function switchTab(tabId) {
-            const tabs = ['account', 'system', 'files', 'about'];
-            tabs.forEach(t => {
-                const content = document.getElementById(`tab-content-${t}`);
-                const btn = document.getElementById(`tab-btn-${t}`);
-                if (t === tabId) {
-                    content.classList.remove('hidden');
-                    btn.className = "w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition bg-indigo-50 text-indigo-600 dark:bg-indigo-950/60 dark:text-indigo-400";
-                } else {
-                    content.classList.add('hidden');
-                    btn.className = "w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800";
-                }
+        onSnapshot(doc(db, "fund", "stashJar"), (docSnap) => {
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                stashCount = data.count || 0;
+                targetGoal = data.goal || 5000;
+            } else {
+                setDoc(doc(db, "fund", "stashJar"), { count: 0, goal: 5000 });
+                stashCount = 0;
+                targetGoal = 5000;
+            }
+            updateJarDisplay();
+            updateGoalDisplay();
+        });
+
+        onSnapshot(collection(db, "history"), (snapshot) => {
+            let historyList = [];
+            snapshot.forEach((docSnap) => {
+                historyList.push({ id: docSnap.id, ...docSnap.data() });
             });
-            lucide.createIcons();
+            historyList.sort((a, b) => b.timestamp - a.timestamp);
+            renderHistory(historyList);
+            checkAndHandleStreakNotifications(historyList);
+        });
+
+        onSnapshot(collection(db, "checklist"), (snapshot) => {
+            let checklistItems = [];
+            snapshot.forEach((docSnap) => {
+                checklistItems.push({ id: docSnap.id, ...docSnap.data() });
+            });
+            checklistItems.sort((a, b) => b.timestamp - a.timestamp);
+            renderChecklist(checklistItems);
+        });
+
+        onSnapshot(collection(db, "notes"), (snapshot) => {
+            let notes = [];
+            snapshot.forEach((docSnap) => {
+                notes.push({ id: docSnap.id, ...docSnap.data() });
+            });
+            notes.sort((a, b) => b.timestamp - a.timestamp);
+            renderNotes(notes);
+        });
+
+        window.switchTab = function(tabId, event) {
+            document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            if(event && event.target) {
+                event.target.classList.add('active');
+            }
         }
 
-        function switchMainTab(view, event) {
-            event.preventDefault();
-            const sidebarLinks = document.querySelectorAll('aside nav a');
-            sidebarLinks.forEach(link => {
-                link.className = "flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition font-medium";
-            });
-            event.currentTarget.className = "flex items-center space-x-3 px-3 py-2 rounded-lg bg-indigo-50 text-indigo-600 dark:bg-indigo-950/60 dark:text-indigo-400 font-semibold transition";
+        window.transact = async function(person, action) {
+            const inputEl = document.getElementById(`${person}-input`);
+            const amt = parseFloat(inputEl.value);
 
-            const settingsMain = document.getElementById('settingsMainContent');
-            const dynamicContent = document.getElementById('dynamicViewContent');
-            const heading = document.getElementById('pageTitleHeading');
-            const subHeading = document.getElementById('pageSubHeading');
+            if (isNaN(amt) || amt <= 0) {
+                alert("Luh, paano yun baby? Lagay ka muna valid na amount please! 😅");
+                return;
+            }
 
-            if (view === 'settings') {
-                settingsMain.classList.remove('hidden');
-                dynamicContent.classList.add('hidden');
-                heading.innerText = "Settings";
-                subHeading.innerText = "Manage parameters and preferences";
+            let reason = "";
+
+            if (action === 'sub') {
+                if (vaults[person] < amt) {
+                    alert("Oops! Baby, hindi sapat ang ipon mo para diyan. Ipon muna tayo ulit! 🥺");
+                    return;
+                }
+                const isSure = confirm("Sure kana ba diyan baby ha? Baka pwedeng isantabi muna yang gastos na yan, hug na lang muna kita? 🥺👉👈");
+                if (!isSure) {
+                    inputEl.value = ''; 
+                    return; 
+                }
+
+                const reasonInput = prompt("Para saan baby yung ibabawas na gastos? 🥺💭");
+                
+                if (reasonInput === null) return;
+                if (!reasonInput.trim()) {
+                    alert("Baby, kailangan mong ilagay kung para saan ang gastos bago mag-withdraw! 🥺⚠️");
+                    return;
+                }
+
+                reason = reasonInput.trim();
+                vaults[person] -= amt;
             } else {
-                settingsMain.classList.add('hidden');
-                dynamicContent.classList.remove('hidden');
-                if (view === 'room') {
-                    heading.innerText = "Active Rooms";
-                    subHeading.innerText = "Collaborate in real-time P2P document rooms";
-                    dynamicContent.innerHTML = `<div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 shadow-sm space-y-4 text-center"><div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 rounded-xl mx-auto flex items-center justify-center"><i data-lucide="layout-grid" class="w-6 h-6"></i></div><h3 class="font-bold text-lg">No Active Rooms</h3><p class="text-xs text-gray-500 max-w-sm mx-auto">Create a new document or join a sync network to start collaborating with peers instantly.</p><button onclick="showToast('Creating room...')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-medium shadow-sm transition">Create Room</button></div>`;
-                } else if (view === 'sync') {
-                    heading.innerText = "Sync Rooms";
-                    subHeading.innerText = "Manage decentralized relay nodes and peers";
-                    dynamicContent.innerHTML = `<div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 shadow-sm space-y-4 text-center"><div class="w-12 h-12 bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 rounded-xl mx-auto flex items-center justify-center"><i data-lucide="share-2" class="w-6 h-6"></i></div><h3 class="font-bold text-lg">Connected to P2P Swarm</h3><p class="text-xs text-gray-500 max-w-sm mx-auto">Currently synchronized with 4 active peer nodes across the global decentralized network.</p><button onclick="showToast('Scanning peers...')" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-medium shadow-sm transition">Scan Peers</button></div>`;
-                } else if (view === 'metrics') {
-                    heading.innerText = "Network Metrics";
-                    subHeading.innerText = "Real-time bandwidth and packet flow statistics";
-                    dynamicContent.innerHTML = `<div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 shadow-sm space-y-4"><div class="flex items-center space-x-3"><div class="p-2.5 bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 rounded-xl"><i data-lucide="bar-chart" class="w-6 h-6"></i></div><div><h3 class="font-bold text-lg">Bandwidth Telemetry</h3><p class="text-xs text-gray-500">Live throughput for local node session.</p></div></div><div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4"><div class="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800"><span class="text-xs text-gray-500">Incoming Rate</span><h4 class="text-xl font-bold mt-1">2.4 MB/s</h4></div><div class="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800"><span class="text-xs text-gray-500">Outgoing Rate</span><h4 class="text-xl font-bold mt-1">1.8 MB/s</h4></div><div class="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800"><span class="text-xs text-gray-500">Packet Loss</span><h4 class="text-xl font-bold mt-1 text-emerald-500">0.02%</h4></div></div></div>`;
+                vaults[person] += amt;
+            }
+
+            await setDoc(doc(db, "fund", "balances"), vaults);
+
+            const date = new Date();
+            const dateString = date.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' });
+            const timeString = date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            await addDoc(collection(db, "history"), {
+                person: person,
+                action: action,
+                amount: amt,
+                reason: reason,
+                date: dateString,
+                time: timeString,
+                timestamp: Date.now()
+            });
+
+            const name = person === 'gwen' ? 'Gwen' : 'Zyra';
+
+            if (action === 'add') {
+                alert(`Yehey! Successfully deposited ₱${amt.toFixed(2)} to ${name}'s vault! 🎉💖 Proud of you lovee!`);
+            } else if (action === 'sub') {
+                alert(`Successfully withdrawn ₱${amt.toFixed(2)} from ${name}'s vault for "${reason}". Recorded na ito sa history baby! 💸💸`);
+            }
+
+            inputEl.value = '';
+        }
+
+        window.dropOnePeso = async function(e) {
+            const choice = prompt("Sino ang nag-hulog ng ₱1?\n\nType 1 for Gwen 🌸\nType 2 for Zyra 🕸️");
+            if (choice === null) return;
+
+            let person = "";
+            const cleanChoice = choice.trim().toLowerCase();
+            
+            if (cleanChoice === "1" || cleanChoice === "gwen") {
+                person = "gwen";
+            } else if (cleanChoice === "2" || cleanChoice === "zyra") {
+                person = "zyra";
+            } else {
+                alert("Invalid option baby! Type 1 (Gwen) or 2 (Zyra). 😊");
+                return;
+            }
+
+            vaults[person] += 1;
+            await setDoc(doc(db, "fund", "balances"), vaults);
+
+            stashCount += 1;
+            await setDoc(doc(db, "fund", "stashJar"), { count: stashCount, goal: targetGoal }, { merge: true });
+
+            const date = new Date();
+            const dateString = date.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' });
+            const timeString = date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            await addDoc(collection(db, "history"), {
+                person: person,
+                action: 'add',
+                amount: 1,
+                reason: '1-Peso Stash Drop 🪙',
+                date: dateString,
+                time: timeString,
+                timestamp: Date.now()
+            });
+
+            for (let i = 0; i < 4; i++) {
+                const el = document.createElement('div');
+                el.className = 'floating-emoji';
+                el.innerText = '🪙';
+                el.style.left = (e.clientX + (Math.random() * 50 - 25)) + 'px';
+                el.style.top = (e.clientY + (Math.random() * 40 - 20)) + 'px';
+                document.body.appendChild(el);
+                setTimeout(() => el.remove(), 2000);
+            }
+        }
+
+        window.resetJar = async function() {
+            if (stashCount === 0) return;
+            const confirmReset = confirm("Baby, reset na natin ang 1-Peso Stash Jar? 🫙✨");
+            if (confirmReset) {
+                stashCount = 0;
+                await setDoc(doc(db, "fund", "stashJar"), { count: 0, goal: targetGoal }, { merge: true });
+            }
+        }
+
+        window.updateGoalPrompt = async function() {
+            const newGoalInput = prompt("Magkano ang gusto ninyong target goal para sa ating Total Love Fund? (₱)", targetGoal);
+            if (newGoalInput === null) return;
+            const parsedGoal = parseFloat(newGoalInput);
+            if (isNaN(parsedGoal) || parsedGoal <= 0) {
+                alert("Lagay ka po ng valid amount baby! 😅");
+                return;
+            }
+            targetGoal = parsedGoal;
+            await setDoc(doc(db, "fund", "stashJar"), { count: stashCount, goal: targetGoal }, { merge: true });
+            updateGoalDisplay();
+            alert(`Na-update na ang target goal natin sa ₱${targetGoal.toFixed(2)}! Fighting! 💖`);
+        }
+
+        function updateJarDisplay() {
+            document.getElementById('jar-count').innerText = stashCount;
+            document.getElementById('jar-total').innerText = stashCount.toFixed(2);
+        }
+
+        function updateGoalDisplay() {
+            document.getElementById('goal-display').innerText = targetGoal.toLocaleString();
+            const total = vaults.gwen + vaults.zyra;
+            let percent = targetGoal > 0 ? (total / targetGoal) * 100 : 0;
+            if (percent > 100) percent = 100;
+            document.getElementById('goal-percentage').innerText = percent.toFixed(0) + '%';
+            document.getElementById('goal-progress-fill').style.width = percent + '%';
+        }
+
+        window.addChecklistItem = async function() {
+            const inputEl = document.getElementById('checklist-input');
+            const priceEl = document.getElementById('checklist-price');
+            const categoryEl = document.getElementById('checklist-category');
+            const dateEl = document.getElementById('checklist-target-date');
+            
+            const text = inputEl.value.trim();
+            const priceRange = priceEl.value.trim();
+            const category = categoryEl.value;
+            const targetDate = dateEl.value;
+
+            if (!text) {
+                alert("Lagay ka muna ng item baby! 😊");
+                return;
+            }
+
+            const whoChoice = prompt("Sino naglagay nito?\n\nType 1 para kay Gwen 🌸\nType 2 para kay Zyra 🕸️");
+            if (whoChoice === null) return;
+
+            let creator = "";
+            const cleanWho = whoChoice.trim().toLowerCase();
+            if (cleanWho === "1" || cleanWho === "gwen") {
+                creator = "Gwen 🌸";
+            } else if (cleanWho === "2" || cleanWho === "zyra") {
+                creator = "Zyra 🕸️";
+            } else {
+                creator = "Team Ryzza ✨";
+            }
+
+            await addDoc(collection(db, "checklist"), {
+                text: text,
+                priceRange: priceRange,
+                category: category,
+                targetDate: targetDate || null,
+                creator: creator,
+                done: false,
+                timestamp: Date.now()
+            });
+
+            inputEl.value = '';
+            priceEl.value = '';
+            dateEl.value = '';
+        }
+
+        window.toggleChecklist = async function(id, currentStatus, event) {
+            event.stopPropagation();
+            const willBeDone = !currentStatus;
+            
+            if (willBeDone) {
+                const confirmCheck = confirm("Na-accomplish o nakuha na ba natin ito baby? 🌸");
+                if (!confirmCheck) return;
+                alert("Congrats, so proud of u! 🎉💖 Galing-galing naman ng baby ko! ⸜( ˃ ᵕ ˂ )⸝♡");
+            } else {
+                const confirmUncheck = confirm("Gusto mo bang i-uncheck/ibalik sa active itong item baby? 🥺");
+                if (!confirmUncheck) return;
+            }
+
+            await updateDoc(doc(db, "checklist", id), {
+                done: willBeDone
+            });
+        }
+
+        window.deleteChecklistItem = async function(id, event) {
+            event.stopPropagation();
+            const isConfirmed = confirm("Baby, sure ka bang burahin itong item sa checklist? 🥺");
+            if (isConfirmed) {
+                await deleteDoc(doc(db, "checklist", id));
+            }
+        }
+
+        const hugMessages = [
+            "Sending you the biggest, warmest hug baby! 🤗💖",
+            "Tight hug received! Never letting you go! 🫂✨",
+            "Hug energy refilled! I love you so much! 🥰❤️"
+        ];
+        const kissMessages = [
+            "Mwah! 1,000,000 kisses sent to my favorite person! 💋😘",
+            "Kiss on the forehead, nose, lips, neck & cheeks for my baby! 💋✨",
+            "Sweetest kiss delivered! Always so proud of you! 💖😚"
+        ];
+
+        window.triggerLoveAction = function(type, e) {
+            const emoji = type === 'hug' ? '🤗' : '💋';
+            const messages = type === 'hug' ? hugMessages : kissMessages;
+
+            for (let i = 0; i < 6; i++) {
+                const el = document.createElement('div');
+                el.className = 'floating-emoji';
+                el.innerText = emoji;
+                el.style.left = (e.clientX + (Math.random() * 60 - 30)) + 'px';
+                el.style.top = (e.clientY + (Math.random() * 40 - 20)) + 'px';
+                document.body.appendChild(el);
+                setTimeout(() => el.remove(), 2000);
+            }
+
+            const randMsg = messages[Math.floor(Math.random() * messages.length)];
+            setTimeout(() => alert(randMsg), 150);
+        }
+
+        window.addLoveNote = async function() {
+            const inputEl = document.getElementById('note-input');
+            const text = inputEl.value.trim();
+
+            if (!text) {
+                alert("Sulat ka muna ng note baby! 💌");
+                return;
+            }
+
+            const date = new Date();
+            const dateString = date.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' });
+            const timeString = date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+            await addDoc(collection(db, "notes"), {
+                text: text,
+                date: dateString,
+                time: timeString,
+                timestamp: Date.now()
+            });
+
+            inputEl.value = '';
+        }
+
+        function renderNotes(notes) {
+            const container = document.getElementById('notes-container');
+            if (notes.length === 0) {
+                container.innerHTML = '<p class="empty-state">Wala pang love note ngayon, mag-iwan ka na baby! 🌸</p>';
+                return;
+            }
+
+            container.innerHTML = '';
+            notes.slice(0, 5).forEach(n => {
+                const div = document.createElement('div');
+                div.className = 'note-card';
+                
+                const noteDateTime = n.date ? `${n.date} • ${n.time}` : n.time;
+
+                div.innerHTML = `
+                    <span>"${n.text}"</span>
+                    <small style="color: rgba(255,255,255,0.4); font-size: 0.68rem; white-space: nowrap; margin-left: 10px;">📅 ${noteDateTime}</small>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // Streak check with 24-hr expiry, grey color when expired, and notifications for active/expired state transitions
+        function checkAndHandleStreakNotifications(historyList) {
+            const streakNumEl = document.getElementById('streak-count');
+            const streakDescEl = document.getElementById('streak-desc');
+
+            // Filter out only deposit additions ('add')
+            const deposits = historyList.filter(item => item.action === 'add');
+
+            if (deposits.length === 0) {
+                streakNumEl.innerText = "0";
+                streakNumEl.classList.add('inactive-streak');
+                streakDescEl.innerText = "Wala pang hulog, mag-deposit na!";
+                return;
+            }
+
+            // Sort deposits descending by timestamp
+            deposits.sort((a, b) => b.timestamp - a.timestamp);
+
+            const now = Date.now();
+            const latestDepositTime = deposits[0].timestamp;
+            const hoursSinceLastDeposit = (now - latestDepositTime) / (1000 * 60 * 60);
+
+            // Check if streak is expired (> 24 hours since last deposit)
+            const isExpired = hoursSinceLastDeposit > 24;
+
+            // Get unique deposit days to calculate streak count if active
+            const dateSet = new Set(
+                deposits.map(item => {
+                    const d = new Date(item.timestamp);
+                    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+                })
+            );
+
+            const uniqueDates = Array.from(dateSet)
+                .map(dateStr => new Date(dateStr))
+                .sort((a, b) => b - a);
+
+            let streak = 0;
+            if (!isExpired && uniqueDates.length > 0) {
+                let expectedDate = new Date(uniqueDates[0]);
+                expectedDate.setHours(0, 0, 0, 0);
+
+                for (let i = 0; i < uniqueDates.length; i++) {
+                    const curr = new Date(uniqueDates[i]);
+                    curr.setHours(0, 0, 0, 0);
+                    if (curr.getTime() === expectedDate.getTime()) {
+                        streak++;
+                        expectedDate.setDate(expectedDate.getDate() - 1);
+                    } else {
+                        break;
+                    }
                 }
             }
-            lucide.createIcons();
+
+            const storageKey = 'teamRyzzaStreakState';
+            const lastKnownState = localStorage.getItem(storageKey); // 'active' or 'expired'
+            const currentState = isExpired ? 'expired' : 'active';
+
+            if (isExpired) {
+                streakNumEl.innerText = "0";
+                streakNumEl.classList.add('inactive-streak');
+                streakDescEl.innerText = "Na-expire na ang 24-hr window! Mag-hulog para ma-activate ulit.";
+
+                if (lastKnownState !== 'expired') {
+                    localStorage.setItem(storageKey, 'expired');
+                    alert("⚠️ Oh no! Lumipas na ang 24 hours na walang hulog. Nag-reset sa 0 ang streak natin at naging grey. Mag-deposit na ulit para buhayin ito! 🥺");
+                }
+            } else {
+                streakNumEl.innerText = streak > 0 ? streak : 1;
+                streakNumEl.classList.remove('inactive-streak');
+                streakDescEl.innerText = "Active pa ang 24-hr window natin! Tuloy-tuloy lang!";
+
+                if (lastKnownState === 'expired') {
+                    localStorage.setItem(storageKey, 'active');
+                    alert("🎉 Yey! Na-activate at buhay na ulit ang savings streak natin! Galing-galing ninyo baby! 💖");
+                } else if (!lastKnownState) {
+                    localStorage.setItem(storageKey, 'active');
+                }
+            }
         }
 
-        let isDarkMode = false;
-        function toggleDarkMode() {
-            isDarkMode = !isDarkMode;
-            document.documentElement.classList.toggle('dark', isDarkMode);
-            const icon = document.getElementById('themeIcon');
-            icon.setAttribute('data-lucide', isDarkMode ? 'moon' : 'sun');
-            lucide.createIcons();
-            showToast(isDarkMode ? 'Dark mode enabled' : 'Light mode enabled');
+        function updateAllDisplays() {
+            document.getElementById('gwen-bal').innerText = vaults.gwen.toFixed(2);
+            document.getElementById('zyra-bal').innerText = vaults.zyra.toFixed(2);
+            document.getElementById('total-bal').innerText = (vaults.gwen + vaults.zyra).toFixed(2);
+            updateGoalDisplay();
         }
 
-        function openModal(type) {
-            const modal = document.getElementById('appModal');
-            const title = document.getElementById('modalTitle');
-            const body = document.getElementById('modalBody');
-            const footer = document.getElementById('modalFooter');
+        function renderHistory(historyList) {
+            const historyContainer = document.getElementById('global-history');
+            
+            if (historyList.length === 0) {
+                historyContainer.innerHTML = '<p class="empty-state">Wala pang nilalagay love, simulan na nating mag-ipon! 🥺</p>';
+                return;
+            }
 
-            modal.classList.remove('hidden');
-            if (type === 'editProfileModal') {
-                title.innerText = 'Edit Profile';
-                body.innerHTML = `
-                    <div class="space-y-3">
-                        <div>
-                            <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Display Name</label>
-                            <input type="text" id="editNameInput" value="Paul Palamaras" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Local Identifier</label>
-                            <input type="text" id="editUsernameInput" value="paulpalamaras" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                        </div>
+            historyContainer.innerHTML = ''; 
+
+            historyList.forEach(t => {
+                const card = document.createElement('div');
+                card.className = 'history-card';
+                
+                const displayName = t.person === 'gwen' ? 'Gwen 🌸' : 'Zyra 🕸️';
+                const actionText = t.action === 'add' ? 'nag-hulog ng' : 'bumawas ng';
+                const sign = t.action === 'add' ? '+' : '-';
+                const colorClass = t.action === 'add' ? 'text-pos' : 'text-neg';
+                const reasonDisplay = t.reason ? `<br><small style="color: #fbcfe8; font-style: italic;">📌 Dahilan: ${t.reason}</small>` : '';
+                
+                const dateTimeDisplay = t.date ? `${t.date} • ${t.time}` : t.time;
+                
+                card.innerHTML = `
+                    <div style="text-align: left; overflow: hidden; text-overflow: ellipsis;">
+                        <span class="bubble-name">${displayName}</span> ${actionText}
+                        ${reasonDisplay}
+                        <br><small style="color:rgba(255,255,255,0.45); font-size: 0.68rem;">📅 ${dateTimeDisplay}</small>
+                    </div>
+                    <div>
+                        <span class="${colorClass}">${sign}₱${t.amount.toFixed(2)}</span>
                     </div>
                 `;
-                footer.innerHTML = `
-                    <button onclick="closeModal()" class="px-4 py-2 border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl text-sm font-medium transition">Cancel</button>
-                    <button onclick="saveProfileChanges()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-medium shadow-sm transition">Save Changes</button>
-                `;
-            } else if (type === 'logoutModal') {
-                title.innerText = 'Lock local session?';
-                body.innerText = 'Your session will be locked. You will need to enter your 6-digit security PIN to resume.';
-                footer.innerHTML = `
-                    <button onclick="closeModal()" class="px-4 py-2 border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl text-sm font-medium transition">Cancel</button>
-                    <button onclick="closeModal(); showToast('Session locked successfully');" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-medium shadow-sm transition">Confirm</button>
-                `;
-            } else if (type === 'resetModal') {
-                title.innerText = 'Perform Factory Reset?';
-                body.innerText = 'Warning: This will wipe all local identifiers, active cache, and workspace sessions permanently.';
-                footer.innerHTML = `
-                    <button onclick="closeModal()" class="px-4 py-2 border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl text-sm font-medium transition">Cancel</button>
-                    <button onclick="closeModal(); showToast('Factory reset completed');" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl text-sm font-medium shadow-sm transition">Reset App</button>
-                `;
-            }
+                
+                historyContainer.appendChild(card);
+            });
         }
 
-        function saveProfileChanges() {
-            const newName = document.getElementById('editNameInput').value;
-            const newUsername = document.getElementById('editUsernameInput').value;
-            
-            if(newName) {
-                document.getElementById('displayCardName').innerText = newName;
-                // Update initials
-                const initials = newName.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
-                document.getElementById('profileAvatarInitials').innerHTML = `${initials}<div class="absolute -bottom-1 -right-1 w-5 h-5 bg-white dark:bg-gray-900 rounded-full flex items-center justify-center p-0.5"><div class="w-full h-full bg-emerald-500 rounded-full border-2 border-white dark:border-gray-900"></div></div>`;
-            }
-            if(newUsername) {
-                document.getElementById('displayCardIdentifier').innerText = newUsername;
-                document.getElementById('inputIdentifier').value = newUsername;
+        function renderChecklist(items) {
+            const container = document.getElementById('checklist-container');
+            if (items.length === 0) {
+                container.innerHTML = '<p class="empty-state">Wala pang checklist items, magdagdag na tayo lovee! 💖</p>';
+                return;
             }
 
-            closeModal();
-            showToast('Profile updated successfully');
-        }
+            container.innerHTML = '';
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = `checklist-card ${item.done ? 'done' : ''}`;
 
-        function closeModal() {
-            document.getElementById('appModal').classList.add('hidden');
-        }
+                const priceDisplay = item.priceRange ? `<span class="price-badge">₱${item.priceRange}</span>` : '';
+                const dateBadge = item.targetDate ? `<span class="date-badge">🗓️ ${item.targetDate}</span>` : '';
+                const creatorBadge = item.creator ? `<span class="creator-badge">👤 ${item.creator}</span>` : '';
 
-        function openNewPageModal(type) {
-            document.getElementById('addPageMenu').classList.add('hidden');
-            showToast(`Creating new ${type}...` );
-        }
-
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            const msgSpan = document.getElementById('toastMessage');
-            msgSpan.innerText = message;
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3000);
+                card.innerHTML = `
+                    <div class="checklist-left">
+                        <input type="checkbox" ${item.done ? 'checked' : ''} onclick="toggleChecklist('${item.id}', ${item.done}, event)">
+                        <span style="font-weight: 500;">${item.text}</span>
+                        ${priceDisplay}
+                        <span class="badge">${item.category}</span>
+                        ${creatorBadge}
+                        ${dateBadge}
+                    </div>
+                    <button class="btn-delete-item" onclick="deleteChecklistItem('${item.id}', event)">✕</button>
+                `;
+                container.appendChild(card);
+            });
         }
     </script>
 </body>
